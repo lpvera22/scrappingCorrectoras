@@ -1,4 +1,5 @@
-from src.processing.seleniumBingSearch import getUrlCleansMultiprocessing, getUrlCleans
+from src.seleniumBingSearch import getUrlCleansMultiprocessing
+from src.preparing.cleaningUrls import cleaningUrls
 import pandas as pd
 import time
 
@@ -17,9 +18,9 @@ def convert(seconds):
 
 
 def main(search):
-    aux = ceplist[:100]
-    getUrlCleansMultiprocessing(search, aux, 1)
-    # getUrlCleans(search, ceplist)
+
+    getUrlCleansMultiprocessing(search)
+    # print(cleaningUrls(6))
 
 
 if __name__ == '__main__':

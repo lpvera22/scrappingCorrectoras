@@ -5,7 +5,13 @@ import whois
 
 def urlInfo(url):
     hostname = urllib.parse.urlparse(url).netloc
-    print(whois.whois(hostname))
+    return whois.whois(hostname)
 
 
-
+def isUp(url):
+    try:
+        code = urllib.request.urlopen(url).getcode()
+        if code == 200:
+            return True
+    except:
+        return False
