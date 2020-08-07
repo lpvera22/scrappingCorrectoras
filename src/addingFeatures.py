@@ -3,6 +3,7 @@ from src.sslInfo import checkSSL
 from bs4 import BeautifulSoup
 import requests
 from src.malwareCheck import checkAll
+import json
 
 
 def addSSL(df):
@@ -62,3 +63,26 @@ def addingFeatures():
     df = addMeta(df)
     df = checkAll(df)
     df.to_csv('out/urlFeatures.csv', index=False)
+
+
+def getDfFromJson(file, columns):
+    with open(file) as content:
+        dict_content = json.load(content)
+
+    df = pd.DataFrame.from_dict(dict_content, orient='index')
+    df.reset_index(level=0, inplace=True)
+    df.columns = columns
+    return df
+
+
+def addingColorsAndFontInfo():
+    frames = []
+    for file in [('out/urlColors.json', ['url', 'color']), ('out/urlFont.json', ['url', 'font'])]:
+        aux = getDfFromJson(file[0], file[1])
+        frames.append(aux)
+    all = pd.merge(frames[0],frames[1], on='url')
+
+    all.to_csv('out/urlFinal.csv', index=False)
+
+
+

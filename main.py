@@ -1,6 +1,6 @@
 from src.seleniumBingSearch import getUrlCleansMultiprocessing
 from src.cleaningUrls import cleaningUrls
-from src.addingFeatures import addingFeatures
+from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
 from src.googleDetectLogo import findLogoOnUrl
 from src.getFontImg import getAllFonts
 from src.googleImgProp import getAllColors
@@ -22,18 +22,13 @@ def convert(seconds):
 
 
 def main(search):
-
     # getUrlCleansMultiprocessing(search)
     # cleaningUrls(8)
+    # addingFeatures()
     # findLogoOnUrl()
     # getAllFonts()
-    getAllColors()
-    # addingFeatures()
-
-
-
-
-
+    # getAllColors()
+    addingColorsAndFontInfo()
 
 
 if __name__ == '__main__':
