@@ -3,6 +3,7 @@ from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures
 from src.googleDetectLogo import findLogoOnUrl
 from src.getFontImg import getAllFonts
+from src.googleImgProp import getAllColors
 import pandas as pd
 import time
 
@@ -24,9 +25,10 @@ def main(search):
 
     # getUrlCleansMultiprocessing(search)
     # cleaningUrls(8)
-    # addingFeatures()
     # findLogoOnUrl()
-    getAllFonts()
+    # getAllFonts()
+    getAllColors()
+    # addingFeatures()
 
 
 
