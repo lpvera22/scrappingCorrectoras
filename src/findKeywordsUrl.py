@@ -18,6 +18,5 @@ def main():
             print('CONTENT :', tag.attrs['content'])
 
 
-
 if __name__ == '__main__':
     main()

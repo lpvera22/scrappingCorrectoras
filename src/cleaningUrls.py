@@ -1,5 +1,5 @@
 import pandas as pd
-from scripts.urlInfo import isUp
+from src.urlInfo import isUp
 
 
 # reading urls.csv file

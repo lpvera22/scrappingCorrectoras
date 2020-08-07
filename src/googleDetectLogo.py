@@ -101,6 +101,7 @@ def crop_to_hint(file_name, image_folder, vects):
 def findLogoOnUrl():
     urlLogo = {}
     for url in df['url'].to_list():
+        print(url)
         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
         pathImg = rootImg + str(m.group(1))
 

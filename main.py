@@ -1,9 +1,12 @@
 from src.seleniumBingSearch import getUrlCleansMultiprocessing
-from src.preparing.cleaningUrls import cleaningUrls
+from src.cleaningUrls import cleaningUrls
+from src.addingFeatures import addingFeatures
+from src.googleDetectLogo import findLogoOnUrl
+from src.getFontImg import getAllFonts
 import pandas as pd
 import time
 
-cep = pd.read_csv('data/ceps.csv')
+cep = pd.read_csv('data/CEP-dados-2018-UTF8/ceps.csv')
 ceplist = cep['cep'].to_list()
 
 
@@ -19,8 +22,16 @@ def convert(seconds):
 
 def main(search):
 
-    getUrlCleansMultiprocessing(search)
-    # print(cleaningUrls(6))
+    # getUrlCleansMultiprocessing(search)
+    # cleaningUrls(8)
+    # addingFeatures()
+    # findLogoOnUrl()
+    getAllFonts()
+
+
+
+
+
 
 
 if __name__ == '__main__':

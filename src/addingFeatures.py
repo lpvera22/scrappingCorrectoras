@@ -1,8 +1,8 @@
 import pandas as pd
-from scripts.sslInfo import checkSSL
+from src.sslInfo import checkSSL
 from bs4 import BeautifulSoup
 import requests
-from scripts.malwareCheck import checkAll
+from src.malwareCheck import checkAll
 
 
 def addSSL(df):

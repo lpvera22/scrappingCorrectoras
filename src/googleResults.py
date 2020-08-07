@@ -4,19 +4,19 @@ import re
 import urllib.parse
 from urllib.parse import urlparse
 
+
 def googleSearch(query):
-    g_clean = [ ] 
-    url = 'https://google.com/search?q='+query
-    
-    
+    g_clean = []
+    url = 'https://google.com/search?q=' + query
+
     try:
         html = requests.get(url)
-        
-        if html.status_code==200:
-            
+
+        if html.status_code == 200:
+
             soup = BeautifulSoup(html.text, 'lxml')
             a = soup.find_all('a')
-            
+
             for i in a:
                 k = i.get('href')
                 try:
@@ -24,7 +24,7 @@ def googleSearch(query):
                     n = m.group(0)
                     rul = n.split('&')[0]
                     domain = urlparse(rul)
-                    if(re.search('google.com', domain.netloc)):
+                    if (re.search('google.com', domain.netloc)):
                         continue
                     else:
                         g_clean.append(rul)
