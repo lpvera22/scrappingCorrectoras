@@ -6,7 +6,7 @@ import re
 import difflib
 from PIL import Image, ImageDraw
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/credentials.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
 client = vision.ImageAnnotatorClient()
 df = pd.read_csv('out/urlFeatures.csv')
 rootImg = 'out/img/'

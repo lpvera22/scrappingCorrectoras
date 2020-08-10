@@ -19,7 +19,7 @@ from time import *
 import multiprocessing
 from memory_profiler import profile
 
-file = pd.read_csv('data/CEP-dados-2018-UTF8/ceps.csv', delimiter='\t', header=None, dtype='str')
+file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv', delimiter='\t', header=None, dtype='str')
 file = file[file.index >= 732646]
 filecep = file[0].tolist()
 
