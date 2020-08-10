@@ -28,6 +28,7 @@ def main(search):
     # findLogoOnUrl()
     # getAllFonts()
     # getAllColors()
+
     addingColorsAndFontInfo()
 
 

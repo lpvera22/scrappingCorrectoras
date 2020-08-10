@@ -1,9 +1,20 @@
 import pandas as pd
-from src.sslInfo import checkSSL
+import sys
+sys.path.append('/media/laura/dados/Projects/Work/searchKeyword')
+from scripts.src.sslInfo import checkSSL
 from bs4 import BeautifulSoup
 import requests
-from src.malwareCheck import checkAll
+from scripts.src.malwareCheck import checkAll
 import json
+from scripts.src.getFontImg import getPublicUrlImg
+import os
+from google.cloud import storage
+
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
+
+client = storage.Client()
+bucket = client.get_bucket('fileimageapibucket')
 
 
 def addSSL(df):
@@ -80,9 +91,14 @@ def addingColorsAndFontInfo():
     for file in [('out/urlColors.json', ['url', 'color']), ('out/urlFont.json', ['url', 'font'])]:
         aux = getDfFromJson(file[0], file[1])
         frames.append(aux)
-    all = pd.merge(frames[0],frames[1], on='url')
-
+    all = pd.merge(frames[0], frames[1], on='url')
+    all['imgUrl'] = all['url'].apply(lambda x: getPublicUrlImg(bucket, x))
     all.to_csv('out/urlFinal.csv', index=False)
 
 
 
+    
+    
+   
+   
+    

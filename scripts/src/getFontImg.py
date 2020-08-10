@@ -5,11 +5,12 @@ from google.cloud import storage
 import glob
 import pandas as pd
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/credentials.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
 
 client = storage.Client()
 bucket = client.get_bucket('fileimageapibucket')
-df = pd.read_csv('out/urlLogosCrop.csv')
+df = pd.read_csv('scripts/out/urlLogosCrop.csv')
+
 df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
 url = df['url'].to_list()
 urlFont = dict.fromkeys(url, None)
@@ -43,6 +44,7 @@ def whatFontApi(bucket, blob):
 
 
 def getPublicUrlImg(bucket, file):
+    print(file)
     gcs_url = 'https://storage.googleapis.com/%(bucket)s/%(file)s' % {'bucket': bucket.name, 'file': file}
     return gcs_url
 
@@ -121,3 +123,4 @@ def getAllFonts():
             resetConfigApiJson()
     with open('out/urlFont.json', 'w') as json_file:
         json.dump(urlFont, json_file)
+

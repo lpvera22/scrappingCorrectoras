@@ -2,7 +2,7 @@ import os
 from google.cloud import vision
 from google.cloud import storage
 import pandas as pd
-from src.getFontImg import getPublicUrlImg
+from scripts.src.getFontImg import getPublicUrlImg
 import json
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/credentials.json'
