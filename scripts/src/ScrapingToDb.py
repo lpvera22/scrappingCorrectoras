@@ -1,6 +1,7 @@
 from database.db import MongoAPI
 import pandas as pd
 
+
 data = {
     "database": "Corretoras",
     "collection": "",
@@ -17,5 +18,4 @@ def getScrapingtoDb():
     mongo_obj.writeMany(data_dict)
 
 
-if __name__ == '__main__':
-    getScrapingtoDb()
+

@@ -1,9 +1,12 @@
+import sys
+sys.path.append('/media/laura/dados/Projects/Work/searchKeyword')
 from scripts.src.seleniumBingSearch import getUrlCleansMultiprocessing
 from scripts.src.cleaningUrls import cleaningUrls
 from scripts.src.addingFeatures import addingFeatures, addingColorsAndFontInfo
 from scripts.src.googleDetectLogo import findLogoOnUrl
 from scripts.src.getFontImg import getAllFonts
 from scripts.src.googleImgProp import getAllColors
+from scripts.src.ScrapingToDb import getScrapingtoDb
 import pandas as pd
 import time
 
@@ -22,14 +25,16 @@ def convert(seconds):
 
 
 def main(search):
-    # getUrlCleansMultiprocessing(search)
+    getUrlCleansMultiprocessing(search)
     # cleaningUrls(8)
-    # addingFeatures()
     # findLogoOnUrl()
     # getAllFonts()
     # getAllColors()
+    # addingFeatures()
 
-    addingColorsAndFontInfo()
+    # addingColorsAndFontInfo()
+    
+    
 
 
 if __name__ == '__main__':

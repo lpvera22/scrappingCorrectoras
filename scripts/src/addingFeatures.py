@@ -69,7 +69,7 @@ def addMeta(df):
 
 
 def addingFeatures():
-    df = pd.read_csv('out/urlCleaned.csv')
+    df = pd.read_csv('out/urlFinal.csv')
     df = addSSL(df)
     df = addMeta(df)
     df = checkAll(df)
