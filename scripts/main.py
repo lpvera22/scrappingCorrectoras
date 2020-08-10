@@ -1,9 +1,9 @@
-from src.seleniumBingSearch import getUrlCleansMultiprocessing
-from src.cleaningUrls import cleaningUrls
-from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
-from src.googleDetectLogo import findLogoOnUrl
-from src.getFontImg import getAllFonts
-from src.googleImgProp import getAllColors
+from scripts.src.seleniumBingSearch import getUrlCleansMultiprocessing
+from scripts.src.cleaningUrls import cleaningUrls
+from scripts.src.addingFeatures import addingFeatures, addingColorsAndFontInfo
+from scripts.src.googleDetectLogo import findLogoOnUrl
+from scripts.src.getFontImg import getAllFonts
+from scripts.src.googleImgProp import getAllColors
 import pandas as pd
 import time
 

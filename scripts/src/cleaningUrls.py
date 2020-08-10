@@ -1,5 +1,6 @@
 import pandas as pd
-from src.urlInfo import isUp
+from scripts.src.urlInfo import isUp
+from datetime import date
 
 
 # reading urls.csv file
@@ -32,4 +33,6 @@ def cleaningUrls(n):
 
     urls['on'] = urls['url'].apply(isUp)
     final = urls[urls['on'] == True]
+
+    final['contador'] = date.today()
     final[['url', 'cep']].to_csv('out/urlCleaned.csv', index=False)
