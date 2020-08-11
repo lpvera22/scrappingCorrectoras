@@ -137,3 +137,9 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
+
+scripts/data
+scripts/out
+scripts/out/*
+scripts/out/0.csv

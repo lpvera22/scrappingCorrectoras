@@ -10,7 +10,7 @@ from scripts.src.getFontImg import getPublicUrlImg
 import os
 from google.cloud import storage
 
-
+from datetime import datetime
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
 
 client = storage.Client()
@@ -23,6 +23,7 @@ def addSSL(df):
 
 
 def getTitle(url):
+    # url='http://'+url
     r = requests.get(url)
     try:
         soup = BeautifulSoup(r.content, "html")
@@ -35,20 +36,22 @@ def getTitle(url):
 
 
 def getDescription(url):
+    url='http://'+url
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "html")
     meta = soup.find_all('meta')
-    print(meta)
+    # print(meta)
     for tag in meta:
 
         if 'name' in tag.attrs.keys() and tag.attrs['name'].strip().lower() in ['description']:
-            print(tag.attrs['content'])
+            # print(tag.attrs['content'])
             return tag.attrs['content']
         else:
             return None
 
 
 def getKeywords(url):
+    # url='http://'+url
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
     meta_list = soup.find_all("meta")
@@ -68,12 +71,21 @@ def addMeta(df):
     return df
 
 
+
 def addingFeatures():
-    df = pd.read_csv('out/urlFinal.csv')
+    df = pd.read_csv('scripts/out/urlCleaned.csv')
+   
     df = addSSL(df)
+    
+    df=df[df['SSL']==True]
+    
     df = addMeta(df)
+    
     df = checkAll(df)
-    df.to_csv('out/urlFeatures.csv', index=False)
+    
+    df['date']=datetime.now()
+    
+    df.to_csv('scripts/out/urlFeatures.csv', index=False)
 
 
 def getDfFromJson(file, columns):
@@ -88,12 +100,18 @@ def getDfFromJson(file, columns):
 
 def addingColorsAndFontInfo():
     frames = []
-    for file in [('out/urlColors.json', ['url', 'color']), ('out/urlFont.json', ['url', 'font'])]:
-        aux = getDfFromJson(file[0], file[1])
-        frames.append(aux)
-    all = pd.merge(frames[0], frames[1], on='url')
-    all['imgUrl'] = all['url'].apply(lambda x: getPublicUrlImg(bucket, x))
-    all.to_csv('out/urlFinal.csv', index=False)
+    df = pd.read_csv('scripts/out/urlFeatures.csv')
+    print(df)
+    # for file in [('scripts/out/urlColors.json', ['url', 'color']), ('scripts/out/urlFont.json', ['url', 'font'])]:
+    #     aux = getDfFromJson(file[0], file[1])
+    #     frames.append(aux)
+    # a = pd.merge(frames[0], frames[1], on='url')
+    
+    # a = pd.merge(a[['url','color','font']], df,on='url')
+    
+    # a['imgUrl'] = a['url'].apply(lambda x: getPublicUrlImg(bucket, x))
+    # a['date']=datetime.now()
+    # a.to_csv('scripts/out/urlFinal.csv', index=False)
 
 
 

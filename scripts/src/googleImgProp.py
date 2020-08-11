@@ -5,12 +5,12 @@ import pandas as pd
 from scripts.src.getFontImg import getPublicUrlImg
 import json
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/credentials.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
 client = vision.ImageAnnotatorClient()
 
 clientStorage = storage.Client()
 bucket = clientStorage.get_bucket('fileimageapibucket')
-df = pd.read_csv('out/urlLogosCrop.csv')
+df = pd.read_csv('scripts/out/urlLogosCrop.csv')
 df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
 url = df['url'].to_list()
 urlColors = dict.fromkeys(url, None)
@@ -58,5 +58,5 @@ def getAllColors():
             newUrl = getPublicUrlImg(bucket, file)
             colors = detect_properties_uri(newUrl)
             urlColors[file[4:file[4:].find('/')]] = colors
-    with open('out/urlColors.json', 'w') as json_file:
+    with open('scripts/out/urlColors.json', 'w') as json_file:
         json.dump(urlColors, json_file)

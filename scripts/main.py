@@ -10,8 +10,8 @@ from scripts.src.ScrapingToDb import getScrapingtoDb
 import pandas as pd
 import time
 
-cep = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
-ceplist = cep['cep'].to_list()
+
+
 
 
 def convert(seconds):

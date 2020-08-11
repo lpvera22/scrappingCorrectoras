@@ -18,10 +18,14 @@ import threading
 from time import *
 import multiprocessing
 from memory_profiler import profile
+import logging
 
-file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv', delimiter='\t', header=None, dtype='str')
-file = file[file.index >= 732646]
-filecep = file[0].tolist()
+file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
+
+file = file[file.index <= 100]
+filecep = file['cep'].tolist()
+
+
 
 threadLocal = threading.local()
 
@@ -58,9 +62,11 @@ def getLinks(driver, url_cleans):
 
 # @profile
 def getUrlbyCEP(cep, search, i):
-    f = open('out/' + str(i) + '.csv', 'w')
+    # print(cep)
+    f = open('scripts/out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
+    
     options = Options()
     options.headless = True
 
@@ -71,9 +77,11 @@ def getUrlbyCEP(cep, search, i):
     driver.get(
         'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
     for s in search:
+        # print(s)
         driver.get(
             'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
         for c in cep:
+            # print(c)
 
             cepInput = driver.find_element_by_id('geoname')
             cepInput.clear()
@@ -97,32 +105,39 @@ def getUrlbyCEP(cep, search, i):
 
 
             except:
-                pass
-            searchInput = driver.find_element_by_id('sb_form_q')
-            searchInput.clear()
-            searchInput.send_keys(s)
+                
+                searchInput = driver.find_element_by_id('sb_form_q')
+                searchInput.clear()
+                searchInput.send_keys(s)
 
-            driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
-            sleep(0.5)
+                driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
+                sleep(0.5)
 
-            url_cleans = []
+                url_cleans = []
 
-            for i in range(2):
+                for j in range(2):
 
-                url_cleans = getLinks(driver, url_cleans)
-                sleep(1.5)
-                driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
-                url_cleans = getLinks(driver, url_cleans)
-                for u in url_cleans:
-                    f.write(u + ',' + c)
-                    f.write('\n')
+                    url_cleans = getLinks(driver, url_cleans)
+                    sleep(1.5)
+                    try:
+                        
+                        driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
+                    except:
+                        pass
+                    url_cleans = getLinks(driver, url_cleans)
+                    for u in url_cleans:
+                        print(u,c)
+                        # res.append((u,c))
+                        f.write(str(u) + ',' + str(c))
+                        f.write('\n')
 
-            driver.get(
-                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65'
-                '#location')
+                driver.get(
+                    'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65'
+                    '#location')
 
-    f.close()
-    driver.quit()
+        
+        f.close()
+        driver.quit()
 
 
 def getUrlCleans(search):
@@ -165,7 +180,9 @@ def testFunction(l):
 
 
 def getUrlCleansMultiprocessing(search):
-    f_partial = functools.partial(getUrlbyCEP, search=search)
+    
+    
+    f_partial = functools.partial(getUrlbyCEP, search=search,cep=filecep)
     pro = []
     list_div = chunkIt(filecep, 8)
 
@@ -184,3 +201,4 @@ def getUrlCleansMultiprocessing(search):
 
     for p in range(4, 8):
         pro[p].join()
+    logging.info('scrapping done..')
