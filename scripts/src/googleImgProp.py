@@ -10,10 +10,10 @@ client = vision.ImageAnnotatorClient()
 
 clientStorage = storage.Client()
 bucket = clientStorage.get_bucket('fileimageapibucket')
-df = pd.read_csv('scripts/out/urlLogosCrop.csv')
-df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
-url = df['url'].to_list()
-urlColors = dict.fromkeys(url, None)
+# df = pd.read_csv('scripts/out/urlLogosCrop.csv')
+# df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+# url = df['url'].to_list()
+# urlColors = dict.fromkeys(url, None)
 
 
 def clamp(x):

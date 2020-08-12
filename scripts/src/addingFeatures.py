@@ -83,7 +83,7 @@ def addingFeatures():
     
     df = checkAll(df)
     
-    df['date']=datetime.now()
+    # df['date']=datetime.now()
     
     df.to_csv('scripts/out/urlFeatures.csv', index=False)
 

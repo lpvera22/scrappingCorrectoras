@@ -9,11 +9,11 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Wor
 
 client = storage.Client()
 bucket = client.get_bucket('fileimageapibucket')
-df = pd.read_csv('scripts/out/urlLogosCrop.csv')
+# df = pd.read_csv('scripts/out/urlLogosCrop.csv')
 
-df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
-url = df['url'].to_list()
-urlFont = dict.fromkeys(url, None)
+# df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+# url = df['url'].to_list()
+# urlFont = dict.fromkeys(url, None)
 
 path = '/media/laura/dados/Projects/Work/searchKeyword/scripts/out/img'
 

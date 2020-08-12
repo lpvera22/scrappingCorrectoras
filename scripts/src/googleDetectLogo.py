@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
 client = vision.ImageAnnotatorClient()
-df = pd.read_csv('scripts/out/urlFeatures.csv')
+# df = pd.read_csv('scripts/out/urlCleaned.csv')
 rootImg = 'scripts/out/img/'
 rootData = 'scripts/out/'
 
@@ -99,6 +99,7 @@ def crop_to_hint(file_name, image_folder, vects):
 
 
 def findLogoOnUrl():
+    df = pd.read_csv('scripts/out/urlCleaned.csv')
     urlLogo = {}
     for url in df['url'].to_list():
         # print(url)

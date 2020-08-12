@@ -27,9 +27,10 @@ def regexClean(url):
 
 def cleaningUrls(n):
     logging.info('cleaning urls')
-    urls = concatUrls(8)
+    urls = concatUrls(n)    
     urls['url'] = urls['url'].astype(str)
     urls['url'] = urls['url'].apply(regexClean)
+    
     urls = urls.drop_duplicates(subset=['url'], keep='last')
 
     urls['on'] = urls['url'].apply(isUp)

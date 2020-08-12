@@ -22,7 +22,7 @@ import logging
 
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 
-file = file[file.index <= 100]
+file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
 
 
@@ -105,7 +105,7 @@ def getUrlbyCEP(cep, search, i):
 
 
             except:
-                
+                # print(c)
                 searchInput = driver.find_element_by_id('sb_form_q')
                 searchInput.clear()
                 searchInput.send_keys(s)
@@ -118,7 +118,9 @@ def getUrlbyCEP(cep, search, i):
                 for j in range(2):
 
                     url_cleans = getLinks(driver, url_cleans)
+                    # print(url_cleans)
                     sleep(1.5)
+                    
                     try:
                         
                         driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
@@ -179,26 +181,28 @@ def testFunction(l):
     sleep(5)
 
 
-def getUrlCleansMultiprocessing(search):
+def getUrlCleansMultiprocessing(search,num):
     
     
     f_partial = functools.partial(getUrlbyCEP, search=search,cep=filecep)
     pro = []
-    list_div = chunkIt(filecep, 8)
+    list_div = chunkIt(filecep, num)
 
-    for i in range(8):
+    for i in range(num):
         aux = createProcess(getUrlbyCEP, (list_div[i], search, i))
 
         pro.append(aux)
 
-    for p in range(4):
+    for p in range(num):
         pro[p].start()
-    for p in range(4):
+        
+        
+    for p in range(num):
         pro[p].join()
 
-    for p in range(4, 8):
-        pro[p].start()
+    # for p in range(4, 8):
+    #     pro[p].start()
 
-    for p in range(4, 8):
-        pro[p].join()
-    logging.info('scrapping done..')
+    # for p in range(4, 8):
+    #     pro[p].join()
+    # logging.info('scrapping done..')

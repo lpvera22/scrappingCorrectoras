@@ -83,6 +83,7 @@ def getAll(url, path):
 
 
 def seleniumGetImg(url, path):
+    print(url)
     options = Options()
     options.headless = True
 
@@ -115,9 +116,9 @@ def seleniumGetImg(url, path):
     driver.close()
 
 
-if __name__ == '__main__':
-    df = pd.read_csv('../out/urlFeatures.csv')
-    for url in df['url'].to_list():
-        print(url)
-        m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-        seleniumGetImg(url, str(m.group(1)))
+# if __name__ == '__main__':
+#     df = pd.read_csv('../out/urlFeatures.csv')
+#     for url in df['url'].to_list():
+#         print(url)
+#         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+#         seleniumGetImg(url, str(m.group(1)))
