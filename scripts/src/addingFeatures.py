@@ -9,7 +9,7 @@ import json
 from scripts.src.getFontImg import getPublicUrlImg
 import os
 from google.cloud import storage
-
+import re
 from datetime import datetime
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
 
@@ -83,7 +83,7 @@ def addingFeatures():
     
     df = checkAll(df)
     
-    # df['date']=datetime.now()
+    df['date']=datetime.now()
     
     df.to_csv('scripts/out/urlFeatures.csv', index=False)
 
@@ -96,22 +96,30 @@ def getDfFromJson(file, columns):
     df.reset_index(level=0, inplace=True)
     df.columns = columns
     return df
-
+def cleaningUrl(url):
+    m=re.search('https?://([A-Za-z_0-9.-]+).*', url)
+    return str(m.group(1))
+    
 
 def addingColorsAndFontInfo():
     frames = []
     df = pd.read_csv('scripts/out/urlFeatures.csv')
-    print(df)
-    # for file in [('scripts/out/urlColors.json', ['url', 'color']), ('scripts/out/urlFont.json', ['url', 'font'])]:
-    #     aux = getDfFromJson(file[0], file[1])
-    #     frames.append(aux)
-    # a = pd.merge(frames[0], frames[1], on='url')
+    df['domain']=df['url'].apply(cleaningUrl)
     
-    # a = pd.merge(a[['url','color','font']], df,on='url')
+    for file in [('scripts/out/urlColors.json', ['url', 'color']), ('scripts/out/urlFont.json', ['url', 'font'])]:
+        aux = getDfFromJson(file[0], file[1])
+        frames.append(aux)
+    a = pd.merge(frames[0], frames[1], on='url')
+    a=a.rename(columns={"url": "domain"})
     
-    # a['imgUrl'] = a['url'].apply(lambda x: getPublicUrlImg(bucket, x))
-    # a['date']=datetime.now()
-    # a.to_csv('scripts/out/urlFinal.csv', index=False)
+    a = pd.merge(a[['domain','color','font']], df,on='domain')
+    
+    
+    
+    a['imgUrl'] = a['domain'].apply(lambda x: getPublicUrlImg(bucket, x))
+    
+    
+    a.to_csv('scripts/out/urlFinal.csv', index=False)
 
 
 

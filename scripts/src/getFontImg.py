@@ -49,7 +49,7 @@ def whatFontApi(bucket, blob):
 
 def getPublicUrlImg(bucket, file):
     # print(file)
-    gcs_url = 'https://storage.googleapis.com/%(bucket)s/%(file)s' % {'bucket': bucket.name, 'file': file}
+    gcs_url = 'https://storage.googleapis.com/%(bucket)s/img/%(file)s' % {'bucket': bucket.name, 'file': file}
     return gcs_url
 
 
@@ -71,10 +71,10 @@ def modifyJsonFileUpload(newUrl):
     with open('scripts/src/configAPi.json') as f:
         data = json.load(f)
     data['FONT']['INFO']['urlimage'] = newUrl
-    with open('configAPi.json', 'w') as f:
+    with open('scripts/src/configAPi.json', 'w') as f:
         json.dump(data, f)
     blob = bucket.blob('json/configApi.json')
-    with open('configAPi.json', 'rb') as f:
+    with open('scripts/src/configAPi.json', 'rb') as f:
         blob.upload_from_file(f)
 
 
@@ -108,6 +108,11 @@ def downloadJsonfile():
     fileName=blob.name.split('/')[-1]
     blob.download_to_filename(fileName)
 def getAllFonts():
+    df = pd.read_csv('scripts/out/urlLogosCrop.csv')
+
+    df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+    url = df['url'].to_list()
+    urlFont = dict.fromkeys(url, None)
     upload_local_directory_to_gcs(path, 'img')
     downloadJsonfile()
     files = bucket.list_blobs(prefix='img/')

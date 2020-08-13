@@ -200,9 +200,4 @@ def getUrlCleansMultiprocessing(search,num):
     for p in range(num):
         pro[p].join()
 
-    # for p in range(4, 8):
-    #     pro[p].start()
-
-    # for p in range(4, 8):
-    #     pro[p].join()
-    # logging.info('scrapping done..')
+    

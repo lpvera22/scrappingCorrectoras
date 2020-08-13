@@ -83,7 +83,7 @@ def getAll(url, path):
 
 
 def seleniumGetImg(url, path):
-    print(url)
+    
     options = Options()
     options.headless = True
 
@@ -100,9 +100,14 @@ def seleniumGetImg(url, path):
             r = requests.get(src)
 
             if is_valid(src):
-                if not os.path.isdir('../out/img/' + path):
-                    os.makedirs('../out/img/' + path)
-                with open('../out/img/' + path + '/' + str(i) + '.png', 'wb') as outfile:
+                # print(url)
+                if not os.path.isdir('scripts/out/img/' + path):
+                    
+                    os.makedirs('scripts/out/img/' + path)
+                
+                # print('existe')
+                    
+                with open('scripts/out/img/' + path + '/' + str(i) + '.png', 'wb') as outfile:
                     outfile.write(r.content)
 
 
@@ -111,7 +116,7 @@ def seleniumGetImg(url, path):
 
 
     except ValueError:
-        print('here', ValueError)
+        print(url)
 
     driver.close()
 

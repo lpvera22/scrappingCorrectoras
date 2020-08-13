@@ -36,11 +36,11 @@ def main(search):
         seleniumGetImg(url, str(m.group(1)))
     
     findLogoOnUrl()
-    # getAllFonts()
-    # getAllColors()
-    # addingFeatures()
-    # addingColorsAndFontInfo()
-    # getScrapingtoDb()
+    getAllFonts()
+    getAllColors()
+    addingFeatures()
+    addingColorsAndFontInfo()
+    getScrapingtoDb()
     
     
 

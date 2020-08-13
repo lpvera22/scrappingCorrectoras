@@ -51,6 +51,10 @@ def detect_properties_uri(uri):
 
 
 def getAllColors():
+    df = pd.read_csv('scripts/out/urlLogosCrop.csv')
+    df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+    url = df['url'].to_list()
+    urlColors = dict.fromkeys(url, None)
     files = bucket.list_blobs(prefix='img/')
     fileList = [file.name for file in files if '.' in file.name]
     for file in fileList:
