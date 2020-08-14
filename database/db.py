@@ -17,7 +17,7 @@ class MongoAPI:
         documents = self.collection.find({})
 
         output = [{item: data[item] for item in data if item != '_id'} for data in documents]
-        print(output)
+        
         return output
 
     def write(self, data):
