@@ -19,6 +19,13 @@ class MongoAPI:
         output = [{item: data[item] for item in data if item != '_id'} for data in documents]
         
         return output
+    
+    def readFromUrl(self):
+        documents = self.collection.find({"url":self.data['url']})
+
+        output = [{item: data[item] for item in data if item != '_id'} for data in documents]
+        
+        return output
 
     def write(self, data):
         new_document = data['Document']

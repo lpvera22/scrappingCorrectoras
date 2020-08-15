@@ -17,7 +17,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @cross_origin()
 def getURls():
     data['collection'] = 'urls'
-
+    
+        
     mongo_obj = MongoAPI(data)
     response = mongo_obj.read()
     print(response)
@@ -49,6 +50,18 @@ def updatelURl():
     print(response)
     return jsonify(response)
 
+@app.route('/api/url/', methods=["GET"])
+@cross_origin()
+def getParamsURl():
+    
+    data['collection'] = 'urls'
+    
+    url=request.args.get('url')
+    data['url']=url
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.readFromUrl()
+    print(response)
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run()

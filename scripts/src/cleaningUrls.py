@@ -26,7 +26,7 @@ def regexClean(url):
 
 
 def cleaningUrls(n):
-    logging.info('cleaning urls')
+    # logging.info('cleaning urls')
     urls = concatUrls(n)    
     urls['url'] = urls['url'].astype(str)
     urls['url'] = urls['url'].apply(regexClean)
@@ -38,4 +38,4 @@ def cleaningUrls(n):
 
     final['contador'] = date.today()
     final[['url', 'cep']].to_csv('scripts/out/urlCleaned.csv', index=False)
-    logging.info('scripts/out/urlCleaned.csv file saved...')
+    # logging.info('scripts/out/urlCleaned.csv file saved...')

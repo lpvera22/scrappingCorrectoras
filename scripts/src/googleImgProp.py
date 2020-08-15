@@ -57,12 +57,18 @@ def getAllColors():
     df['url'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
     url = df['url'].to_list()
     urlColors = dict.fromkeys(url, None)
-    files = bucket.list_blobs(prefix='img/')
-    fileList = [file.name for file in files if '.' in file.name]
-    for file in fileList:
-        if 'crop.png' in file:
-            newUrl = getPublicUrlImg(bucket, file)
-            colors = detect_properties_uri(newUrl)
-            urlColors[file[4:file[4:].find('/')]] = colors
+    for f in url:
+        
+        files = bucket.list_blobs(prefix='img/'+f)
+        
+        fileList = [file.name for file in files if '.' in file.name]
+        
+        
+        for file in fileList:
+            
+            if 'crop.png' in file:
+                newUrl = getPublicUrlImg(bucket, file)
+                colors = detect_properties_uri(newUrl)
+                urlColors[f] = colors
     with open('scripts/out/urlColors.json', 'w') as json_file:
         json.dump(urlColors, json_file)

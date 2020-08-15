@@ -73,17 +73,23 @@ def addMeta(df):
 
 
 def addingFeatures():
-    df = pd.read_csv('scripts/out/urlCleaned.csv')
-   
+    # df = pd.read_csv('scripts/out/urlCleaned.csv')
+    df = pd.read_csv('scripts/out/urlLogosCrop.csv')
+    
+    df=df[['url']]
     df = addSSL(df)
     
     df=df[df['SSL']==True]
+    # print(df)
     
     df = addMeta(df)
+    # print(df)
     
     df = checkAll(df)
+    # print(df)
     
     df['date']=datetime.now()
+    # print(df)
     
     df.to_csv('scripts/out/urlFeatures.csv', index=False)
 
@@ -103,20 +109,38 @@ def cleaningUrl(url):
 
 def addingColorsAndFontInfo():
     frames = []
-    df = pd.read_csv('scripts/out/urlFeatures.csv')
-    df['domain']=df['url'].apply(cleaningUrl)
     
-    for file in [('scripts/out/urlColors.json', ['url', 'color']), ('scripts/out/urlFont.json', ['url', 'font'])]:
-        aux = getDfFromJson(file[0], file[1])
-        frames.append(aux)
+    
+    dfFeat = pd.read_csv('scripts/out/urlFeatures.csv')
+    dfFeat['domain']=dfFeat['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+    
+    
+    fileColor='scripts/out/urlColors.json'
+    dfColor=pd.read_json(fileColor,orient='index')
+    dfColor.reset_index(inplace=True)
+    dfColor=dfColor.rename(columns={"index": "url"})
+    
+    frames.append(dfColor)
+    
+    
+    fileFont='scripts/out/urlFont.json'
+    dfFont=pd.read_json(fileFont,orient='index')
+    dfFont.reset_index(inplace=True)
+    dfFont=dfFont.rename(columns={"index": "url",0:"font"})
+    frames.append(dfFont)
+    
+    
+    
+    
     a = pd.merge(frames[0], frames[1], on='url')
+    
     a=a.rename(columns={"url": "domain"})
     
-    a = pd.merge(a[['domain','color','font']], df,on='domain')
+    a = pd.merge(a,dfFeat,on='domain')
     
     
     
-    a['imgUrl'] = a['domain'].apply(lambda x: getPublicUrlImg(bucket, x))
+    # # a['imgUrl'] = a['domain'].apply(lambda x: getPublicUrlImg(bucket, x))
     
     
     a.to_csv('scripts/out/urlFinal.csv', index=False)

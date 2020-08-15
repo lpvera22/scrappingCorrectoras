@@ -111,7 +111,7 @@ class ListComponent extends Component {
             </div>
             {this.state.analyzed == "" ? 
                 <ListUrls l={this.state.urls} filt={this.state.filt} handleThis={this.handleAnalyzeUrl} handleClassifyUrl={this.handleClassifyUrl}></ListUrls> :
-                <AnalyzeForm></AnalyzeForm>
+                <AnalyzeForm item={this.state.analyzed}></AnalyzeForm>
             }
             </React.Fragment>
             

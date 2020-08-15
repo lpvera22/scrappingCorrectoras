@@ -72,3 +72,16 @@
     width   : 50%;  /* or 100px */
     border-bottom:3px solid white;
   }
+
+.btn-anotacoes{
+    background-color: #2a2a2a;
+    border-color: #174931;
+    color: white;
+
+}
+.btn-anotacoes:hover {
+    background-color: #174931;
+    border-color: #174931;
+    color: white;
+
+}

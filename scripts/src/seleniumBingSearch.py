@@ -76,66 +76,70 @@ def getUrlbyCEP(cep, search, i):
 
     driver.get(
         'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+    
     for s in search:
-        # print(s)
-        driver.get(
-            'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-        for c in cep:
-            # print(c)
-
-            cepInput = driver.find_element_by_id('geoname')
-            cepInput.clear()
-            cepInput.send_keys(c)
-
-            sleep(0.5)
-            driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-
-            saveBtn = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.ID, "sv_btn"))
-            )
-            saveBtn.click()
-            sleep(0.5)
-
-            try:
-                sleep(0.5)
-                driver.find_element_by_id('geoname')
-                continue
-
-
-
-
-            except:
+        try:
+            print(s)
+            driver.get(
+                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+            for c in cep:
                 # print(c)
-                searchInput = driver.find_element_by_id('sb_form_q')
-                searchInput.clear()
-                searchInput.send_keys(s)
 
-                driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
+                cepInput = driver.find_element_by_id('geoname')
+                cepInput.clear()
+                cepInput.send_keys(c)
+
+                sleep(0.5)
+                driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+
+                saveBtn = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.ID, "sv_btn"))
+                )
+                saveBtn.click()
                 sleep(0.5)
 
-                url_cleans = []
+                try:
+                    sleep(0.5)
+                    driver.find_element_by_id('geoname')
+                    continue
 
-                for j in range(2):
 
-                    url_cleans = getLinks(driver, url_cleans)
-                    # print(url_cleans)
-                    sleep(1.5)
-                    
-                    try:
+
+
+                except:
+                    # print(c)
+                    searchInput = driver.find_element_by_id('sb_form_q')
+                    searchInput.clear()
+                    searchInput.send_keys(s)
+
+                    driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
+                    sleep(0.5)
+
+                    url_cleans = []
+
+                    for j in range(2):
+
+                        url_cleans = getLinks(driver, url_cleans)
+                        # print(url_cleans)
+                        sleep(1.5)
                         
-                        driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
-                    except:
-                        pass
-                    url_cleans = getLinks(driver, url_cleans)
-                    for u in url_cleans:
-                        print(u,c)
-                        # res.append((u,c))
-                        f.write(str(u) + ',' + str(c))
-                        f.write('\n')
+                        try:
+                            
+                            driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
+                        except:
+                            pass
+                        url_cleans = getLinks(driver, url_cleans)
+                        for u in url_cleans:
+                            print(u,c)
+                            # res.append((u,c))
+                            f.write(str(u) + ',' + str(c))
+                            f.write('\n')
 
-                driver.get(
-                    'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65'
-                    '#location')
+                    driver.get(
+                        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65'
+                        '#location')
+        except:
+            continue
 
         
         f.close()

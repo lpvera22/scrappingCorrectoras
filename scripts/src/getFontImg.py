@@ -115,31 +115,37 @@ def getAllFonts():
     urlFont = dict.fromkeys(url, None)
     upload_local_directory_to_gcs(path, 'img')
     downloadJsonfile()
-    files = bucket.list_blobs(prefix='img/')
-    fileList = [file.name for file in files if '.' in file.name]
-    for file in fileList:
-        if 'crop.png' in file:
-            # print(file)
-            newUrl = getPublicUrlImg(bucket, file)
-            modifyJsonFileUpload(newUrl)
-            
+    
+    for f in url:
+        files = bucket.list_blobs(prefix='img/'+f)
+        fileList = [file.name for file in files if '.' in file.name]
+        for file in fileList:
+            if 'crop.png' in file:
+                # print(file)
+                newUrl = getPublicUrlImg(bucket, file)
+                modifyJsonFileUpload(newUrl)
                 
-            font = whatFontApi(bucket, bucket.blob('json/configApi.json'))
-            if font !=-1:
-                if isinstance(font, list):
-                    urlFont[file[4:file[4:].find('/')]] = font[0]['title']
-                else:
-
-                    modifyJsonAllUpload(font)
-                    allFont = whatFontApi(bucket, bucket.blob('json/calApiFont.json'))
-                    if allFont!=-1:
+                    
+                font = whatFontApi(bucket, bucket.blob('json/configApi.json'))
+                
+                if font !=-1:
+                    if isinstance(font, list):
+                        urlFont[f] = font[0]['title']
                         
-                        urlFont[file[4:file[4:].find('/')]] = allFont[0]['title']
                     else:
-                        urlFont[file[4:file[4:].find('/')]] = None
-                resetConfigApiJson()
-            else:
-                urlFont[file[4:file[4:].find('/')]] = None
+
+                        modifyJsonAllUpload(font)
+                        allFont = whatFontApi(bucket, bucket.blob('json/calApiFont.json'))
+                        if allFont!=-1:
+                            
+                            urlFont[f] = allFont[0]['title']
+                            
+                        else:
+                            
+                            urlFont[f] = None
+                    resetConfigApiJson()
+                else:
+                    urlFont[f] = None
     with open('scripts/out/urlFont.json', 'w') as json_file:
         json.dump(urlFont, json_file)
 

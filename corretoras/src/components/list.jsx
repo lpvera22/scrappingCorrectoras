@@ -54,7 +54,7 @@ class ListUrls extends Component {
                                     }
                                 </div> :
                                 <div className="col-4">
-                                    <button type='button' className='btn btn-classify' onClick={() => this.props.handleThis(item.url)}>Análise</button>  
+                                    <button type='button' className='btn btn-classify' onClick={() => this.props.handleThis(item)}>Análise</button>  
                                 </div>
                             }
                         </div>

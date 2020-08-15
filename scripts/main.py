@@ -30,10 +30,13 @@ def main(search):
     getUrlCleansMultiprocessing(search,5)
     cleaningUrls(5)
     dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
+    f = open('scripts/out/imgUrls.csv', 'w')
+    f.write('url,imgSrc')
+    f.write('\n')
     for url in dfCleaned['url'].to_list():
         
         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-        seleniumGetImg(url, str(m.group(1)))
+        seleniumGetImg(url, str(m.group(1)),f)
     
     findLogoOnUrl()
     getAllFonts()
