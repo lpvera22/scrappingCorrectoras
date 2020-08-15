@@ -42,10 +42,12 @@ def detect_properties_uri(uri):
         colors.append((color.pixel_fraction, hex))
 
     if response.error.message:
-        raise Exception(
-            '{}\nFor more info on error messages, check: '
-            'https://cloud.google.com/apis/design/errors'.format(
-                response.error.message))
+        print('error on google image',uri)
+        return -1
+        # raise Exception(
+        #     '{}\nFor more info on error messages, check: '
+        #     'https://cloud.google.com/apis/design/errors'.format(
+        #         response.error.message))
 
     return colors
 

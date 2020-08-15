@@ -26,6 +26,29 @@ def getURls():
     #                 status=200,
     #                 mimetype='application/json')
 
+@app.route('/api/urls', methods=["DELETE"])
+@cross_origin()
+def deleteallURls():
+    data['collection'] = 'urls'
+
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.deleteAll()
+    print(response)
+    return jsonify(response)
+    
+@app.route('/api/urls/', methods=["PUT"])
+@cross_origin()
+def updatelURl():
+    r=request.get_json()
+    data['collection'] = 'urls'
+    data['Filter']={'url':r['url']}
+    data['state']={'state':r['state']}
+    
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.update()
+    print(response)
+    return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run()

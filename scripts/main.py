@@ -39,8 +39,7 @@ def main(search):
     getAllFonts()
     getAllColors()
     addingFeatures()
-    addingColorsAndFontI3
-    nfo()
+    addingColorsAndFontInfo()
     getScrapingtoDb()
     
     

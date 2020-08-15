@@ -49,7 +49,7 @@ def whatFontApi(bucket, blob):
 
 def getPublicUrlImg(bucket, file):
     # print(file)
-    gcs_url = 'https://storage.googleapis.com/%(bucket)s/img/%(file)s' % {'bucket': bucket.name, 'file': file}
+    gcs_url = 'https://storage.googleapis.com/%(bucket)s/%(file)s' % {'bucket': bucket.name, 'file': file}
     return gcs_url
 
 
