@@ -53,3 +53,22 @@
     width: 1612px;
     height: 622px;
 }
+.btn-classify{
+  background-color: #2a2a2a;
+  border-color: #174931;
+  color: white;
+}
+.btn-classify:hover{
+    background-color: #174931;
+    border-color: #174931;
+    color: white;
+}
+.btn-checked::before{
+    content : "";
+    position: absolute;
+    left    : 25%;
+    bottom  : -62%;
+    height  : 3px;
+    width   : 50%;  /* or 100px */
+    border-bottom:3px solid white;
+  }
