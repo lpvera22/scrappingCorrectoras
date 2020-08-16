@@ -11,7 +11,9 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
+@app.route("/")
+def hello():
+    return "<h1 style='color:blue'>Hello There!</h1>"
 
 
 @app.route('/api/urls', methods=['GET'])
@@ -120,4 +122,4 @@ def getImg():
         return abort(404)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
