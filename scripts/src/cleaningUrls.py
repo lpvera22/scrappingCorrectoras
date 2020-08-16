@@ -1,5 +1,5 @@
 import pandas as pd
-from scripts.src.urlInfo import isUp
+from src.urlInfo import isUp
 from datetime import date
 import logging
 

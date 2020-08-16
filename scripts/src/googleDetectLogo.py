@@ -5,9 +5,13 @@ from google.cloud import vision
 import re
 import difflib
 from PIL import Image, ImageDraw
+import pathlib
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'/media/laura/dados/Projects/Work/searchKeyword/scripts/credentials.json'
+PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
+print(PATH_CREDENTIALS)
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 client = vision.ImageAnnotatorClient()
+
 # df = pd.read_csv('scripts/out/urlCleaned.csv')
 rootImg = 'scripts/out/img/'
 rootData = 'scripts/out/'

@@ -1,19 +1,21 @@
 import sys
-sys.path.append('/media/laura/dados/Projects/Work/searchKeyword')
-from scripts.src.seleniumBingSearch import getUrlCleansMultiprocessing
-from scripts.src.cleaningUrls import cleaningUrls
-from scripts.src.addingFeatures import addingFeatures, addingColorsAndFontInfo
-from scripts.src.googleDetectLogo import findLogoOnUrl
-from scripts.src.getFontImg import getAllFonts
-from scripts.src.googleImgProp import getAllColors
-from scripts.src.ScrapingToDb import getScrapingtoDb
-from scripts.src.getallImg import seleniumGetImg
+import os
+import pathlib
+
+from src.seleniumBingSearch import getUrlCleansMultiprocessing
+from src.cleaningUrls import cleaningUrls
+from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
+from src.googleDetectLogo import findLogoOnUrl
+from src.getFontImg import getAllFonts
+from src.googleImgProp import getAllColors
+from src.ScrapingToDb import getScrapingtoDb
+from src.getallImg import seleniumGetImg
 import pandas as pd
 import time
 import re
 
 
-
+os.environ['KEY'] = 'AIzaSyAMgJ9UV5-81zIDTy0kMXYK2ILsfFYWh20'
 
 
 def convert(seconds):
@@ -27,7 +29,7 @@ def convert(seconds):
 
 
 def main(search):
-    getUrlCleansMultiprocessing(search,5)
+    getUrlCleansMultiprocessing(search,2)
     cleaningUrls(5)
     dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
     f = open('scripts/out/imgUrls.csv', 'w')
