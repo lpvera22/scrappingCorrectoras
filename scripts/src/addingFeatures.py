@@ -1,12 +1,12 @@
 import pandas as pd
 import sys
 sys.path.append('/media/laura/dados/Projects/Work/searchKeyword')
-from scripts.src.sslInfo import checkSSL
+from src.sslInfo import checkSSL
 from bs4 import BeautifulSoup
 import requests
-from scripts.src.malwareCheck import checkAll
+from src.malwareCheck import checkAll
 import json
-from scripts.src.getFontImg import getPublicUrlImg
+from src.getFontImg import getPublicUrlImg
 import os
 from google.cloud import storage
 import re

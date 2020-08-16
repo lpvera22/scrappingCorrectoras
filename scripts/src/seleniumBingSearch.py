@@ -20,7 +20,7 @@ import multiprocessing
 from memory_profiler import profile
 import logging
 
-file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
+file = pd.read_csv('data/CEP-dados-2018-UTF8/ceps.csv')
 
 file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
