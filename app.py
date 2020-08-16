@@ -13,7 +13,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def hello():
-    return "<h1 style='color:blue'>Root!</h1>"
+    return " <h1 style='color:blue'>Root!</h1>"
 
 
 @app.route('/api/urls', methods=['GET'])
