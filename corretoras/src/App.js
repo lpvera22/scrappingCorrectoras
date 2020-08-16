@@ -3,7 +3,7 @@ import logo from './sulamericaLogo.png';
 import './App.css';
 import './custom.css'
 import ListComponent from './components/clasification.jsx'
-
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 function App() {
   return (
     <div className="App">
@@ -24,6 +24,7 @@ function App() {
           <div className="col-2">           
 
             login:
+            <PersonAddIcon style={{fontSize:'35px'}}></PersonAddIcon>
 
 
           </div>

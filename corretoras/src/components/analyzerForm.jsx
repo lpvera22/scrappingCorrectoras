@@ -3,6 +3,8 @@ import '../custom.css'
 import {Button} from '@material-ui/core'
 import CreateIcon from '@material-ui/icons/Create';
 import DescriptionIcon from '@material-ui/icons/Description';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import Divider from '@material-ui/core/Divider';
 class AnalyzerForm extends Component {
     constructor (props) {
         super(props);
@@ -10,6 +12,7 @@ class AnalyzerForm extends Component {
         this.state = {
             clicked: "textual",
             keywords: [], 
+            imgUrls: [], 
             addAnot:'',
             title:'',
             content:'', 
@@ -20,8 +23,29 @@ class AnalyzerForm extends Component {
     }
     componentDidMount() {        
         this.setState({keywords: this.extractKeywords()});
+        this.extractImgUrls()
     }
+    extractImgUrls(){
+        let data={
+            'domain':this.props.item.domain,
+            
+            
+            
+        }
+        // console.log('DATAAAAAA',data)
+        fetch('http://127.0.0.1:5000/api/images/?' + new URLSearchParams(data))        
+        .then(response => {
+            if (response.status==404){
+                return {content:'Sem anotações'}
 
+            }
+            return response.json();
+        })
+        .then(data => {
+            this.setState({imgUrls:data}) ;console.log('IMGURLS',data)}) 
+        .catch(err => console.log(err))
+
+    }
     extractKeywords(){
         if (typeof this.props.item.keywords == 'number')
             return []
@@ -101,18 +125,27 @@ class AnalyzerForm extends Component {
                 </div>
                 <div className='row'>
                     <div className='col-8 fixed-content'>
-
                         {this.state.clicked == "textual" ? 
                             this.state.keywords.map(value => {
-                                return <div className='row d-flex' style={{backgroundColor:'#2a2a2a', marginBottom: '1%', padding: '1.5%', paddingLeft: '10%'}}>
-                                    <div className="mr-auto p-2">{value}</div>
-                                    <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.setState({addAnot:{value}});console.log(this.state.addAnot)}} > <CreateIcon></CreateIcon> </button>
-                                    <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.loadComment(value); this.setState({addAnot:'',see:{value}});}} > <DescriptionIcon></DescriptionIcon> </button>
-                                </div>
-                        }) : null
-                            
-                        }
-                        
+                                    return <div className='row d-flex' style={{backgroundColor:'#2a2a2a', marginBottom: '1%', padding: '1.5%', paddingLeft: '10%'}}>
+                                        <div className="mr-auto p-2">{value}</div>
+                                        <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.setState({addAnot:{value}});console.log(this.state.addAnot)}} > <CreateIcon></CreateIcon> </button>
+                                        <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.loadComment(value); this.setState({addAnot:'',see:{value}});}} > <DescriptionIcon></DescriptionIcon> </button>
+                                    </div>
+                            }) :  this.state.imgUrls.map(value => {
+                                    return <div className='row d-flex' style={{backgroundColor:'#2a2a2a', marginBottom: '1%', padding: '1.5%', paddingLeft: '10%'}}>
+                                        <div className="mr-auto p-2">
+                                            <a target="_blank" rel="noopener noreferrer" href={value.imgSrc}>{value.imgSrc}</a>
+                                            {/* <div class="box">
+                                                <iframe src={value.imgSrc} frameborder="0" width = '720px' height='560px'>
+                                                </iframe>
+                                            </div>  */}
+                                        </div>                                        
+                                        <button className="btn btn-anotacoes p-2" value={value.imgSrc} onClick={()=>{this.setState({addAnot:value.imgSrc});console.log(this.state.addAnot)}} > <CreateIcon></CreateIcon> </button>
+                                        <button className="btn btn-anotacoes p-2" value={value.imgSrc} onClick={()=>{this.loadComment(value.imgSrc); this.setState({addAnot:'',see:value.imgSrc});}} > <DescriptionIcon></DescriptionIcon> </button>
+                                    </div>                           
+                            }) 
+                        }                       
                     </div>
                     {this.state.addAnot !==''  ? <div className='col-4 formAddNoteContainer'>
                         <div className='formAddNote'>
@@ -130,12 +163,16 @@ class AnalyzerForm extends Component {
                         </div>
                     </div>
                     : this.state.see !=='' ? <div className='col-4 formAddNoteContainer'>
-                        
-                        <label>{this.state.see.value}</label>
-                        <div> {this.state.commentToShow.data}</div>
-                        <div>{this.state.commentToShow.content}</div>
-                        
-                        
+                        <div className='formNote'>
+                        <span><b>{this.state.see.value}</b></span>
+                        {this.state.commentToShow.content !== 'Sem anotações' ?  <div><div className='formNoteTitle'><FiberManualRecordIcon style={{fontSize:'14px'}}></FiberManualRecordIcon> {this.state.commentToShow.title}</div>
+                        <Divider style={{background:'#807c7c'}} ></Divider>
+                        <div className='formNoteContent'>{this.state.commentToShow.content}</div>
+                        <Divider style={{background:'#807c7c'}} ></Divider>
+                        <div className='formNoteDate'>Última alteração:{this.state.commentToShow.data}</div></div>
+                        : <div className='formNoteContent'>{this.state.commentToShow.content}</div>
+                        }
+                        </div>
                     </div>
                     : null
                     }

@@ -110,9 +110,41 @@
     padding: 4%;
     height: 642px;
 }
+.formNote{
+    background-color: #2a2a2a;
+    padding: 4%;
+    height: 642px;
+}
+.formNoteTitle{
+    font-weight: bold;
+    margin: 7%;
+    text-align: left;
+    font-size: 17px;
+}
+.formNoteContent{
+    height: 250px;
+    padding: 5%;
+    text-align: left;
+    font-size: 12px;
+    color: #ADADAD;
+}
+.formNoteDate{
+    font-size: 10px;
+    font-style: italic;
+    text-align: left;
+}
 .formAddNoteContainer{
     padding-left: 2%;
 }
 .addNoteRow{
     position: relative;
+}
+.box{
+    display: none;
+}
+
+a:hover + .box,.box:hover{
+    display: block;
+    position: absolute;
+    z-index: 100;
 }

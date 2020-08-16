@@ -100,6 +100,24 @@ def getLatestAnotacao():
         return jsonify(response[0])
     else:
         return abort(404)
+@app.route('/api/images/', methods=["GET"])
+@cross_origin()
+def getImg():
+    
+    data['collection'] = 'images'
+    domain=request.args.get('domain')
+    
+    # print({'domain':domain,'resource':resource})
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.readQuery({'domain':domain})
+    
+    if len(response)>0:
+        
+        
+        
+        return jsonify(response)
+    else:
+        return abort(404)
 
 if __name__ == '__main__':
     app.run()
