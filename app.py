@@ -1,7 +1,8 @@
-from flask import Flask, request, json, Response,jsonify
+from flask import Flask, request, json, Response,jsonify,abort
 import pandas as pd
 from database.db import MongoAPI
 from flask_cors import CORS, cross_origin
+from datetime import datetime
 data = {
     "database": "Corretoras",
     "collection": "",
@@ -62,6 +63,43 @@ def getParamsURl():
     response = mongo_obj.readFromUrl()
     print(response)
     return jsonify(response)
+
+@app.route('/api/anotacao/', methods=["POST"])
+@cross_origin()
+def postAnotacao():
+    
+    data['collection'] = 'anotacao'
+    r=request.get_json()
+    data['Document']={
+        'domain':r['domain'],
+        'title':r['title'],
+        'content':r['content'],
+        'resource':r['resource'],
+        'data': datetime.today().strftime('%Y-%m-%d')
+    }
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.write(data)
+    # print(response)
+    return jsonify(response)
+
+@app.route('/api/anotacao/', methods=["GET"])
+@cross_origin()
+def getLatestAnotacao():
+    
+    data['collection'] = 'anotacao'
+    domain=request.args.get('domain')
+    resource=request.args.get('resource')
+    print({'domain':domain,'resource':resource})
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.readQuery({'domain':domain,'resource':resource})
+    
+    if len(response)>0:
+        
+        response.sort(key=lambda x: x['data'], reverse=True)
+        
+        return jsonify(response[0])
+    else:
+        return abort(404)
 
 if __name__ == '__main__':
     app.run()
