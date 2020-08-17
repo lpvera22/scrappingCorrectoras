@@ -9,7 +9,7 @@ def concatUrls(n):
 
     # n is the number of process
     for i in range(n):
-        aux = pd.read_csv('scripts/out/' + str(i) + '.csv', header=0, index_col=False)
+        aux = pd.read_csv('out/' + str(i) + '.csv', header=0, index_col=False)
         frames.append(aux)
 
     allUrls = pd.concat(frames, ignore_index=True)
@@ -37,5 +37,5 @@ def cleaningUrls(n):
     final = urls[urls['on'] == True]
 
     final['contador'] = date.today()
-    final[['url', 'cep']].to_csv('scripts/out/urlCleaned.csv', index=False)
+    final[['url', 'cep']].to_csv('out/urlCleaned.csv', index=False)
     # logging.info('scripts/out/urlCleaned.csv file saved...')
