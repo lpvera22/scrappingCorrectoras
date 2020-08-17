@@ -1,4 +1,8 @@
-from database.db import MongoAPI
+import sys
+print(sys.path)
+
+#sys.path.append('database/')
+from db import MongoAPI
 import pandas as pd
 
 

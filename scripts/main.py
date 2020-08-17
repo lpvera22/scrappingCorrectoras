@@ -1,7 +1,8 @@
 import sys
 import os
 import pathlib
-
+print(sys.path)
+sys.path.append('/root/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
