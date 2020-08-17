@@ -2,6 +2,7 @@ import sys
 import os
 import pathlib
 
+sys.path.append('database/')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
@@ -29,22 +30,22 @@ def convert(seconds):
 
 
 def main(search):
-    getUrlCleansMultiprocessing(search,2)
-    cleaningUrls(5)
-    dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
-    f = open('scripts/out/imgUrls.csv', 'w')
-    f.write('url,imgSrc')
-    f.write('\n')
-    for url in dfCleaned['url'].to_list():
+    # getUrlCleansMultiprocessing(search,2)
+    # cleaningUrls(5)
+    # dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
+    # f = open('scripts/out/imgUrls.csv', 'w')
+    # f.write('url,imgSrc')
+    # f.write('\n')
+    # for url in dfCleaned['url'].to_list():
         
-        m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-        seleniumGetImg(url, str(m.group(1)),f)
+    #     m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+    #     seleniumGetImg(url, str(m.group(1)),f)
     
-    findLogoOnUrl()
-    getAllFonts()
-    getAllColors()
-    addingFeatures()
-    addingColorsAndFontInfo()
+    # findLogoOnUrl()
+    # getAllFonts()
+    # getAllColors()
+    # addingFeatures()
+    # addingColorsAndFontInfo()
     getScrapingtoDb()
     
     
