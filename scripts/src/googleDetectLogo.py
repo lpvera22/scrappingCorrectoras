@@ -7,7 +7,7 @@ import difflib
 from PIL import Image, ImageDraw
 import pathlib
 
-PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
+PATH_CREDENTIALS=os.path.abspath('./credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 client = vision.ImageAnnotatorClient()

@@ -62,8 +62,8 @@ def getLinks(driver, url_cleans):
 
 # @profile
 def getUrlbyCEP(cep, search, i):
-    # print(cep)
-    f = open('scripts/out/' + str(i) + '.csv', 'w')
+    print(cep)
+    f = open('out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
     
@@ -83,7 +83,7 @@ def getUrlbyCEP(cep, search, i):
             driver.get(
                 'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
             for c in cep:
-                # print(c)
+                print(c)
 
                 cepInput = driver.find_element_by_id('geoname')
                 cepInput.clear()

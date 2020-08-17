@@ -2,11 +2,11 @@ import os
 from google.cloud import vision
 from google.cloud import storage
 import pandas as pd
-from scripts.src.getFontImg import getPublicUrlImg
+from src.getFontImg import getPublicUrlImg
 import json
 
 
-PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
+PATH_CREDENTIALS=os.path.abspath('./credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 client = vision.ImageAnnotatorClient()
