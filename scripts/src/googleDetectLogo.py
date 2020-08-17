@@ -6,6 +6,7 @@ import re
 import difflib
 from PIL import Image, ImageDraw
 import pathlib
+from functools import partial
 
 PATH_CREDENTIALS=os.path.abspath('./credentials.json')
 # print(PATH_CREDENTIALS)
@@ -13,8 +14,8 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 client = vision.ImageAnnotatorClient()
 
 # df = pd.read_csv('scripts/out/urlCleaned.csv')
-rootImg = 'scripts/out/img/'
-rootData = 'scripts/out/'
+rootImg = 'out/img/'
+rootData = 'out/'
 
 
 def draw_hint(file_name, image_folder, vects):
@@ -101,7 +102,41 @@ def crop_to_hint(file_name, image_folder, vects):
 
     im2.save(image_folder + '/crop.png', 'PNG')
 
+def have_logo(uri,keywordLogo):
+    """Detects logos in the file located in Google Cloud Storage or on the Web.
+    """
+    try:
+        image = vision.types.Image()
+        image.source.image_uri = uri
 
+        response = client.logo_detection(image=image)
+        logos = response.logo_annotations
+        
+        if not logos:
+                return False
+        else:
+            
+            for logo in logos:
+                exist = logo.description.find(keywordLogo)
+                if exist:
+        
+                    return True
+                else:
+                    return False
+    except:
+        return False
+    
+
+    
+def getallImgUrlwithLogo():
+    dfImgUrls=pd.read_csv('out/imgUrls.csv',sep=';')
+    fpartial=partial(have_logo,keywordLogo='SulAmérica')
+    dfImgUrls['logo']=dfImgUrls['url'].apply(have_logo)
+    dfImgUrls=dfImgUrls[dfImgUrls['logo']==True]
+    dfImgUrls=dfImgUrls[['url','imgSrc']]
+    dfImgUrls.to_csv('out/imgUrls',sep=';')
+    
+    
 def findLogoOnUrl():
     df = pd.read_csv('scripts/out/urlCleaned.csv')
     urlLogo = {}

@@ -6,11 +6,12 @@ sys.path.append('/root/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
-from src.googleDetectLogo import findLogoOnUrl
+from src.googleDetectLogo import findLogoOnUrl,getallImgUrlwithLogo
 from src.getFontImg import getAllFonts
 from src.googleImgProp import getAllColors
 from src.ScrapingToDb import getScrapingtoDb
 from src.getallImg import seleniumGetImg
+
 import pandas as pd
 import time
 import re
@@ -30,22 +31,22 @@ def convert(seconds):
 
 
 def main(search):
-    getUrlCleansMultiprocessing(search,2)
-    cleaningUrls(5)
-    dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
-    f = open('out/imgUrls.csv', 'w')
-    f.write('url,imgSrc')
-    f.write('\n')
-    for url in dfCleaned['url'].to_list():
+    # getUrlCleansMultiprocessing(search,2)
+    # cleaningUrls(5)
+    # dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
+    # f = open('out/imgUrls.csv', 'w')
+    # f.write('url,imgSrc')
+    # f.write('\n')
+    # for url in dfCleaned['url'].to_list():
         
-        m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-        seleniumGetImg(url, str(m.group(1)),f)
-    
-    findLogoOnUrl()
-    getAllFonts()
-    getAllColors()
-    addingFeatures()
-    addingColorsAndFontInfo()
+    #     m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+    #     seleniumGetImg(url, str(m.group(1)),f)
+    # getallImgUrlwithLogo()
+    # findLogoOnUrl()
+    # getAllFonts()
+    # getAllColors()
+    # addingFeatures()
+    # addingColorsAndFontInfo()
     #getScrapingtoDb()
     
     

@@ -166,3 +166,6 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react
+geckodriver-v0.27.0-linux64.tar.gz
+geckodriver1
+geckodriver-v0.27.0-linux64/geckodriver
