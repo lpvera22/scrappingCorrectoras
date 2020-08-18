@@ -47,7 +47,7 @@ def main(search):
     getAllColors()
     addingFeatures()
     addingColorsAndFontInfo()
-    getScrapingtoDb()
+    # getScrapingtoDb()
     
     
 
