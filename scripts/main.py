@@ -2,7 +2,7 @@ import sys
 import os
 import pathlib
 print(sys.path)
-sys.path.append('/root/projects/scrappingCorrectoras/database')
+sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
@@ -31,8 +31,8 @@ def convert(seconds):
 
 
 def main(search):
-    #getUrlCleansMultiprocessing(search,2)
-    #cleaningUrls(2)
+    getUrlCleansMultiprocessing(search,8)
+    cleaningUrls(8)
     dfCleaned = pd.read_csv('out/urlCleaned.csv')
     f = open('out/imgUrls.csv', 'w')
     f.write('url,imgSrc')
@@ -41,13 +41,13 @@ def main(search):
          print(url) 
          m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
          seleniumGetImg(url, str(m.group(1)),f)
-    # getallImgUrlwithLogo()
-    # findLogoOnUrl()
-    # getAllFonts()
-    # getAllColors()
-    # addingFeatures()
-    # addingColorsAndFontInfo()
-    #getScrapingtoDb()
+    getallImgUrlwithLogo()
+    findLogoOnUrl()
+    getAllFonts()
+    getAllColors()
+    addingFeatures()
+    addingColorsAndFontInfo()
+    getScrapingtoDb()
     
     
 

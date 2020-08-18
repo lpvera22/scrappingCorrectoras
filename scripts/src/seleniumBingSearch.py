@@ -22,7 +22,7 @@ import logging
 
 file = pd.read_csv('data/CEP-dados-2018-UTF8/ceps.csv')
 
-file = file[file.index >= 732664]
+#file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
 
 
@@ -62,7 +62,7 @@ def getLinks(driver, url_cleans):
 
 # @profile
 def getUrlbyCEP(cep, search, i):
-    print(cep)
+    #print(cep)
     f = open('out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
@@ -79,11 +79,11 @@ def getUrlbyCEP(cep, search, i):
     
     for s in search:
         try:
-            print(s)
+            #print(s)
             driver.get(
                 'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
             for c in cep:
-                print(c)
+                #print(c)
 
                 cepInput = driver.find_element_by_id('geoname')
                 cepInput.clear()
@@ -107,7 +107,7 @@ def getUrlbyCEP(cep, search, i):
 
 
                 except:
-                    # print(c)
+                    #print(c)
                     searchInput = driver.find_element_by_id('sb_form_q')
                     searchInput.clear()
                     searchInput.send_keys(s)
@@ -120,14 +120,11 @@ def getUrlbyCEP(cep, search, i):
                     for j in range(2):
 
                         url_cleans = getLinks(driver, url_cleans)
-                        # print(url_cleans)
+                        print('urlCleans',url_cleans)
                         sleep(1.5)
                         
-                        try:
-                            
-                            driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
-                        except:
-                            pass
+                        driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
+                        
                         url_cleans = getLinks(driver, url_cleans)
                         for u in url_cleans:
                             print(u,c)
