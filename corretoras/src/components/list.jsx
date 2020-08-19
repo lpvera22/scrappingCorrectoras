@@ -3,6 +3,7 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import ReactShadowScroll from 'react-shadow-scroll';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Button } from '@material-ui/core';
+import whoisLogo from './icon_logo.svg';
 import '../custom.css'
 class ListUrls extends Component {
     constructor(props) {
@@ -22,8 +23,17 @@ class ListUrls extends Component {
                 
                 {this.props.l.filter((item) => item.state == this.props.filt ).map((item, index)=> {
                     return <div className="row" style={{backgroundColor:'#2a2a2a', marginBottom: '1%', padding: '1%'}}>
-                            <div className="col-8" style={{display: 'flex', paddingLeft:'10%', textAlign: "left", verticalAlign: 'middle'}}>                                
+                            <div className='col-2'>
+                            <a  target="_blank" href={"https://registro.br/tecnologia/ferramentas/whois/?search=www.sulamericasaudeconvenios.com.br"+item.domain}  >
+                                <img border="0" alt="whois" src={whoisLogo} width="30" height="30"/>
+                            </a>
+
+                            </div>
+                            <div className="col-6" style={{display: 'flex', paddingLeft:'10%', textAlign: "left", verticalAlign: 'middle'}}>
+                                                               
                                 {item.domain}
+                                
+
                             </div>
                             
                             {item.state == 'todo' ? 
