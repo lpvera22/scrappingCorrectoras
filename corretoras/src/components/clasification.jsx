@@ -12,7 +12,9 @@ class ListComponent extends Component {
         this.state = {
           urls:[],
           filt:'todo',
-          analyzed:""
+          analyzed:"",
+          isClasifying:'',
+          onClassify:''
         };
         this.loadUrls = this.loadUrls.bind(this);
         this.handleClassifyUrl = this.handleClassifyUrl.bind(this);
@@ -26,7 +28,10 @@ class ListComponent extends Component {
             this.setState({urls:jsonStr})            
         })
     }
+
+
     handleClassifyUrl(url, state){
+        this.setState({isClasifying:url,onClassify:url})
         let data={
             'url':url,
             'state':state
@@ -37,7 +42,7 @@ class ListComponent extends Component {
             headers: { 'Content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => {console.log(data); this.loadUrls()}) 
+        .then(data => {console.log(data); this.loadUrls();this.setState({isClasifying:'',onClassify:''})}) 
         .catch(err => console.log(err))
         
     }
@@ -126,7 +131,7 @@ class ListComponent extends Component {
                 <Divider className='Colored' style={{marginBottom: '2%', background:'#807c7c'}}></Divider>
             </div>
             {this.state.analyzed == "" ? 
-                <ListUrls l={this.state.urls} filt={this.state.filt} handleThis={this.handleAnalyzeUrl} handleClassifyUrl={this.handleClassifyUrl}></ListUrls> :
+                <ListUrls l={this.state.urls} filt={this.state.filt} handleThis={this.handleAnalyzeUrl} handleClassifyUrl={this.handleClassifyUrl} isClassifying={this.state.isClasifying}></ListUrls> :
                 <AnalyzeForm item={this.state.analyzed}></AnalyzeForm>
             }
             </React.Fragment>

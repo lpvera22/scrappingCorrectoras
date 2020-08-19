@@ -20,9 +20,9 @@ import multiprocessing
 from memory_profiler import profile
 import logging
 
-file = pd.read_csv('data/CEP-dados-2018-UTF8/ceps.csv')
+file = pd.read_csv('../data/CEP-dados-2018-UTF8/ceps.csv')
 
-file = file[file.index >= 732664]
+#file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
 
 
@@ -45,24 +45,27 @@ def get_driver():
 def getLinks(driver, url_cleans):
     liElements = driver.find_elements_by_class_name('b_algo')
     liElementsAds = driver.find_elements_by_class_name('b_ad')
-
+    print('liElements and ads---->',liElements,liElementsAds)
     for i in liElements:
         link = i.find_element_by_xpath('./h2/a').get_attribute('href')
-
+        print('link---------->',link)
         url_cleans.append(link)
+        print(url_cleans)
 
     for i in liElementsAds:
 
         # link = i.find_element_by_xpath('./ul/li/div/div[1]/div/div/cite/a').text
         link = i.find_element_by_xpath('.//*[contains(text(), "http")]').text
+        print('link---------->',link)
         url_cleans.append(link)
+        print(url_cleans)
 
     return url_cleans
 
 
 # @profile
 def getUrlbyCEP(cep, search, i):
-    print(cep)
+    #print(cep)
     f = open('out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
@@ -79,13 +82,15 @@ def getUrlbyCEP(cep, search, i):
     
     for s in search:
         try:
-            print(s)
+            # print(s)
             driver.get(
                 'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
             for c in cep:
-                print(c)
+                # print(c)
 
                 cepInput = driver.find_element_by_id('geoname')
+                # print(cepInput)
+
                 cepInput.clear()
                 cepInput.send_keys(c)
 
@@ -107,7 +112,7 @@ def getUrlbyCEP(cep, search, i):
 
 
                 except:
-                    # print(c)
+                    print('continue to search...')
                     searchInput = driver.find_element_by_id('sb_form_q')
                     searchInput.clear()
                     searchInput.send_keys(s)
@@ -120,25 +125,29 @@ def getUrlbyCEP(cep, search, i):
                     for j in range(2):
 
                         url_cleans = getLinks(driver, url_cleans)
-                        # print(url_cleans)
-                        sleep(1.5)
                         
+                        sleep(1.5)
                         try:
-                            
                             driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
+                            url_cleans = getLinks(driver, url_cleans)
+                            print('urlCleans',url_cleans)
+                            print('found next page....')
                         except:
                             pass
-                        url_cleans = getLinks(driver, url_cleans)
+
+                        print('not found next page....=================>>>>>>>>>>>>',url_cleans)
                         for u in url_cleans:
+                            print(u)
                             print(u,c)
                             # res.append((u,c))
                             f.write(str(u) + ',' + str(c))
                             f.write('\n')
 
                     driver.get(
-                        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65'
-                        '#location')
+                        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
         except:
+            print('somethong went wrong whith this',c,'cep')
+            
             continue
 
         

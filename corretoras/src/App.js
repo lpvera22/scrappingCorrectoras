@@ -4,6 +4,7 @@ import './App.css';
 import './custom.css'
 import ListComponent from './components/clasification.jsx'
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import CountDown from './components/countDown.jsx'
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,8 @@ function App() {
 
             
             Tempo de varredura:
+            <CountDown/>
+
 
           </div>
           <div className="col-2">           
@@ -33,10 +36,7 @@ function App() {
 
         </div>
         <ListComponent></ListComponent>
-        {/* <div className="row">
-
-
-        </div> */}
+        
         
         
       </div>
