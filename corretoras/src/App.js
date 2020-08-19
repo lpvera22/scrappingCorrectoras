@@ -36,10 +36,7 @@ function App() {
 
         </div>
         <ListComponent></ListComponent>
-        {/* <div className="row">
-
-
-        </div> */}
+        
         
         
       </div>

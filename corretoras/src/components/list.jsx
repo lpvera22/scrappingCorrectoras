@@ -28,8 +28,8 @@ class ListUrls extends Component {
                             
                             {item.state == 'todo' ? 
                                 <div className="col-4">
-                                    <button type='button' className='btn btn-classify' hidden={this.state.onClassify == item.url} onClick={() => this.setState({onClassify: item.url})}>Classificar</button>
-                                    {this.state.isClassifying == item.url?
+                                    <button type='button' className='btn btn-classify' hidden={this.props.onClassify == item.url} onClick={() => this.setState({onClassify: item.url})}>Classificar</button>
+                                    {this.props.isClassifying == item.url?
                                     <p>loading</p>
                                      : 
                                     <div style={{display: "inline"}}  hidden={this.state.onClassify != item.url}> 
@@ -41,8 +41,36 @@ class ListUrls extends Component {
                                     </div>
                                     }
                                 </div> :
+
                                 <div className="col-4">
-                                    <button type='button' className='btn btn-classify' onClick={() => this.props.handleThis(item)}>Análise</button>  
+                                    <button type='button' className='btn btn-classify' onClick={() => this.props.handleThis(item)}>Análise</button>
+                                    <button type='button' className='btn btn-classify' hidden={this.props.onClassify == item.url} onClick={() => this.setState({onClassify: item.url})}>Classificar</button>
+                                    {this.props.isClassifying == item.url?
+                                    <p>loading</p>
+                                     : 
+                                    <div style={{display: "inline"}}  hidden={this.state.onClassify != item.url}>
+                                        {item.state !== 'white'?
+                                            <button className='btn btn-classify' style={{border: 'None'}} onClick={() => {this.props.handleClassifyUrl(item.url, 'white'); this.setState({isClassifying:item.url})}}><InboxIcon style={{ color: 'white' }}></InboxIcon></button>
+                                            :null
+                                        }
+                                        {item.state !== 'green'?
+                                        <button className='btn btn-classify' style={{border: 'None'}} onClick={() => {this.props.handleClassifyUrl(item.url, 'green'); this.setState({isClassifying:item.url})}}><InboxIcon style={{ color: '#00bd6d'  }}></InboxIcon></button>
+                                        :null}
+                                        {item.state !== 'yellow'?
+                                        <button className='btn btn-classify' style={{border: 'None'}} onClick={() => {this.props.handleClassifyUrl(item.url, 'yellow'); this.setState({isClassifying:item.url})}}><InboxIcon style={{ color: '#fdf200'  }}></InboxIcon></button>
+                                        :null
+                                        }
+                                        {item.state!=='red'?
+                                        <button className='btn btn-classify' style={{border: 'None'}} onClick={() => {this.props.handleClassifyUrl(item.url, 'red'); this.setState({isClassifying:item.url})}}><InboxIcon style={{ color: '#ff0000'  }}></InboxIcon></button>
+                                        :null}
+                                        {item.state!=='black'?
+                                        <button className='btn btn-classify' style={{border: 'None'}} onClick={() => {this.props.handleClassifyUrl(item.url, 'black'); this.setState({isClassifying:item.url})}}><InboxIcon style={{ color: '#807c7c'  }}></InboxIcon></button>
+                                        :null}
+                                        
+                                        
+                                    </div>
+                                    }
+                                    
                                 </div>
                             }
                             
