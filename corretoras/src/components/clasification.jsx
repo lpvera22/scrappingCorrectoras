@@ -4,7 +4,12 @@ import {Button,Divider} from '@material-ui/core'
 import InboxIcon from '@material-ui/icons/Inbox';
 import ListUrls from './list.jsx'
 import AnalyzeForm from './analyzerForm.jsx'
-// import axios from 'axios'
+import blueBox from '../icones_gerais/sem_classificacao.svg'
+import whiteBox from '../icones_gerais/white_list.svg'
+import greenBox from '../icones_gerais/green_list.svg'
+import yellowBox from '../icones_gerais/yellow_list.svg'
+import redBox from '../icones_gerais/red_list.svg'
+import blackBox from '../icones_gerais/black_list.svg'
 class ListComponent extends Component {
     constructor(props) {
         super(props);
@@ -77,7 +82,8 @@ class ListComponent extends Component {
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'todo').length}</span> 
                         </span>
-                        <InboxIcon style={{ color: ' #3a91fc',fontSize: 40 }}></InboxIcon>
+                        <img src={blueBox} width="40" height="40" ></img>
+                        {/* <InboxIcon style={{ color: ' #3a91fc',fontSize: 40 }}></InboxIcon> */}
                     </Button>
                 </div>
                 <div className="col">
@@ -85,8 +91,9 @@ class ListComponent extends Component {
                         <span style={{lineHeight:'150%'}}>White List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'white').length}</span> 
-                        </span> 
-                            <InboxIcon style={{ color: 'white',fontSize: 40 }}></InboxIcon>
+                        </span>
+                        <img src={whiteBox} width="40" height="40" ></img>
+                            {/* <InboxIcon style={{ color: 'white',fontSize: 40 }}></InboxIcon> */}
                     </Button>
 
                 </div>
@@ -95,8 +102,9 @@ class ListComponent extends Component {
                         <span style={{lineHeight:'150%'}}>Green List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'green').length}</span> 
-                        </span> 
-                        <InboxIcon style={{ color: '#00bd6d',fontSize: 40 }}></InboxIcon>
+                        </span>
+                        <img src={greenBox} width="40" height="40" ></img>
+                        {/* <InboxIcon style={{ color: '#00bd6d',fontSize: 40 }}></InboxIcon> */}
                     </Button>
 
                 </div>
@@ -105,7 +113,9 @@ class ListComponent extends Component {
                         <span style={{lineHeight:'150%'}}>Yellow List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'yellow').length}</span> 
-                        </span>                        <InboxIcon style={{ color: '#fdf200',fontSize: 40 }}></InboxIcon>
+                        </span>
+                        <img src={yellowBox} width="40" height="40" ></img>
+                        {/* <InboxIcon style={{ color: '#fdf200',fontSize: 40 }}></InboxIcon> */}
                     </Button>
 
                 </div>
@@ -114,7 +124,9 @@ class ListComponent extends Component {
                         <span style={{lineHeight:'150%'}}>Red List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'red').length}</span> 
-                        </span>                        <InboxIcon style={{ color: '#ff0000',fontSize: 40 }}></InboxIcon>
+                        </span>
+                        <img src={redBox} width="40" height="40" ></img>
+                        {/* <InboxIcon style={{ color: '#ff0000',fontSize: 40 }}></InboxIcon> */}
                     </Button>
 
                 </div>
@@ -124,7 +136,8 @@ class ListComponent extends Component {
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'black').length}</span> 
                         </span>
-                        <InboxIcon style={{ color: '#807c7c',fontSize: 40 }}></InboxIcon>
+                        <img src={blackBox} width="40" height="40" ></img>
+                        {/* <InboxIcon style={{ color: '#807c7c',fontSize: 40 }}></InboxIcon> */}
                     </Button>
                 </div>
                 
