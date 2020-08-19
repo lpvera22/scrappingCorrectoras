@@ -24,7 +24,7 @@ class ListUrls extends Component {
                 {this.props.l.filter((item) => item.state == this.props.filt ).map((item, index)=> {
                     return <div className="row" style={{backgroundColor:'#2a2a2a', marginBottom: '1%', padding: '1%'}}>
                             <div className='col-2'>
-                            <a  target="_blank" href={"https://registro.br/tecnologia/ferramentas/whois/?search="+item.domain}  >
+                            <a  target="_blank" href={"https://whois.domaintools.com/"+item.domain}  >
                                 <img border="0" alt="whois" src={whoisLogo} width="30" height="30"/>
                             </a>
 
