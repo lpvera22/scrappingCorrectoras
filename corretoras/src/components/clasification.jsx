@@ -18,6 +18,7 @@ class ListComponent extends Component {
         };
         this.loadUrls = this.loadUrls.bind(this);
         this.handleClassifyUrl = this.handleClassifyUrl.bind(this);
+        this.handleonClassify=this.handleonClassify.bind(this)
         
     }
     loadUrls(){
@@ -47,7 +48,11 @@ class ListComponent extends Component {
         
     }
     
+    handleonClassify(url){
+        console.log(url)
+        this.setState({onClassify:url})
 
+    }
     componentDidMount() {
         
         this.loadUrls()
@@ -131,7 +136,7 @@ class ListComponent extends Component {
                 <Divider className='Colored' style={{marginBottom: '2%', background:'#807c7c'}}></Divider>
             </div>
             {this.state.analyzed == "" ? 
-                <ListUrls l={this.state.urls} filt={this.state.filt} handleThis={this.handleAnalyzeUrl} handleClassifyUrl={this.handleClassifyUrl} isClassifying={this.state.isClasifying}></ListUrls> :
+                <ListUrls l={this.state.urls} filt={this.state.filt} handleThis={this.handleAnalyzeUrl} handleClassifyUrl={this.handleClassifyUrl} isClassifying={this.state.isClasifying} handleonClassify={this.handleonClassify} onClassify={this.state.onClassify}></ListUrls> :
                 <AnalyzeForm item={this.state.analyzed}></AnalyzeForm>
             }
             </React.Fragment>

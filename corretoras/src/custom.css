@@ -57,6 +57,7 @@
   background-color: #2a2a2a;
   border-color: #174931;
   color: white;
+  margin-left: 15px;
 }
 .btn-classify:hover{
     background-color: #174931;
