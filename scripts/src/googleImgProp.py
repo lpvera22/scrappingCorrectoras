@@ -1,3 +1,5 @@
+import sys
+# print('hereeeee',sys.path)
 import os
 from google.cloud import vision
 from google.cloud import storage
@@ -6,7 +8,7 @@ from src.getFontImg import getPublicUrlImg
 import json
 
 
-PATH_CREDENTIALS=os.path.abspath('./credentials.json')
+PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 client = vision.ImageAnnotatorClient()

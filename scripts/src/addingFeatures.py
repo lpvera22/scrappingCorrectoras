@@ -12,7 +12,7 @@ from google.cloud import storage
 import re
 from datetime import datetime
 
-PATH_CREDENTIALS=os.path.abspath('./credentials.json')
+PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 

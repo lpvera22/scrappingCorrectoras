@@ -4,9 +4,11 @@ import requests
 from google.cloud import storage
 import glob
 import pandas as pd
+import sys
+# print(sys.path)
 
+PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
 
-PATH_CREDENTIALS=os.path.abspath('./credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
 client = storage.Client()

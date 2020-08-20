@@ -18,9 +18,10 @@ import threading
 from time import *
 import multiprocessing
 from memory_profiler import profile
+import sys
 import logging
-
-file = pd.read_csv('../data/CEP-dados-2018-UTF8/ceps.csv')
+# print(sys.path)
+file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 
 #file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
@@ -45,20 +46,23 @@ def get_driver():
 def getLinks(driver, url_cleans):
     liElements = driver.find_elements_by_class_name('b_algo')
     liElementsAds = driver.find_elements_by_class_name('b_ad')
-    print('liElements and ads---->',liElements,liElementsAds)
+    # print('liElements and ads---->',liElements,liElementsAds)
     for i in liElements:
-        link = i.find_element_by_xpath('./h2/a').get_attribute('href')
-        print('link---------->',link)
+        try:
+            link = i.find_element_by_xpath('./h2/a').get_attribute('href')
+        except Exception as e: 
+            print("error on links",e)
+        # print('link---------->',link)
         url_cleans.append(link)
-        print(url_cleans)
+        # print(url_cleans)
 
     for i in liElementsAds:
 
         # link = i.find_element_by_xpath('./ul/li/div/div[1]/div/div/cite/a').text
         link = i.find_element_by_xpath('.//*[contains(text(), "http")]').text
-        print('link---------->',link)
+        # print('link---------->',link)
         url_cleans.append(link)
-        print(url_cleans)
+        # print(url_cleans)
 
     return url_cleans
 
@@ -66,7 +70,7 @@ def getLinks(driver, url_cleans):
 # @profile
 def getUrlbyCEP(cep, search, i):
     #print(cep)
-    f = open('out/' + str(i) + '.csv', 'w')
+    f = open('scripts/out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
     
@@ -112,7 +116,7 @@ def getUrlbyCEP(cep, search, i):
 
 
                 except:
-                    print('continue to search...')
+                    #print('continue to search...')
                     searchInput = driver.find_element_by_id('sb_form_q')
                     searchInput.clear()
                     searchInput.send_keys(s)
@@ -131,13 +135,13 @@ def getUrlbyCEP(cep, search, i):
                             driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
                             url_cleans = getLinks(driver, url_cleans)
                             print('urlCleans',url_cleans)
-                            print('found next page....')
+                            # print('found next page....')
                         except:
-                            pass
+                            continue
 
-                        print('not found next page....=================>>>>>>>>>>>>',url_cleans)
+                        # print('not found next page....=================>>>>>>>>>>>>',url_cleans)
                         for u in url_cleans:
-                            print(u)
+                            # print(u)
                             print(u,c)
                             # res.append((u,c))
                             f.write(str(u) + ',' + str(c))
@@ -193,6 +197,10 @@ def chunkIt(seq, num):
 def testFunction(l):
     sleep(5)
 
+def getUrlCleans(search,num):
+    list_div = chunkIt(filecep, num)
+    for i in range(num):
+        getUrlbyCEP(list_div[i],search,i)
 
 def getUrlCleansMultiprocessing(search,num):
     
