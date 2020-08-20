@@ -77,7 +77,7 @@ class ListComponent extends Component {
 
                 <div className="col">
                     
-                    <Button className={this.state.filt == 'todo' ? "btn-checked" : ""} style={{color:'white',textTransform:'none'}} onClick={()=>{this.setState({filt: 'todo', analyzed: ""})}}>
+                    <Button className={this.state.filt == 'todo' ? "btn-checked" : ""} style={{color:'white',textTransform:'none'}} onClick={()=>{this.setState({filt: 'todo', analyzed: "", onClassify:"",isClasifying:""})}}>
                         <span style={{lineHeight:'150%'}}>Sem classificação
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'todo').length}</span> 
@@ -87,7 +87,7 @@ class ListComponent extends Component {
                     </Button>
                 </div>
                 <div className="col">
-                    <Button className={this.state.filt == 'white' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'white', analyzed: ""})}>
+                    <Button className={this.state.filt == 'white' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'white', analyzed: "", onClassify:"",isClasifying:""})}>
                         <span style={{lineHeight:'150%'}}>White List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'white').length}</span> 
@@ -98,7 +98,7 @@ class ListComponent extends Component {
 
                 </div>
                 <div className="col">
-                    <Button className={this.state.filt == 'green' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'green', analyzed: ""})}>
+                    <Button className={this.state.filt == 'green' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'green', analyzed: "", onClassify:"",isClasifying:""})}>
                         <span style={{lineHeight:'150%'}}>Green List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'green').length}</span> 
@@ -109,7 +109,7 @@ class ListComponent extends Component {
 
                 </div>
                 <div className="col">
-                    <Button className={this.state.filt == 'yellow' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'yellow', analyzed: ""})}>
+                    <Button className={this.state.filt == 'yellow' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'yellow', analyzed: "", onClassify:"",isClasifying:""})}>
                         <span style={{lineHeight:'150%'}}>Yellow List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'yellow').length}</span> 
@@ -120,7 +120,7 @@ class ListComponent extends Component {
 
                 </div>
                 <div className="col">
-                    <Button className={this.state.filt == 'red' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'red', analyzed: ""})}>
+                    <Button className={this.state.filt == 'red' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'red', analyzed: "", onClassify:"",isClasifying:""})}>
                         <span style={{lineHeight:'150%'}}>Red List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'red').length}</span> 
@@ -131,7 +131,7 @@ class ListComponent extends Component {
 
                 </div>
                 <div className="col">
-                    <Button className={this.state.filt == 'black' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'black', analyzed: ""})}>
+                    <Button className={this.state.filt == 'black' ? "btn-checked" : ""}  style={{color:'white',textTransform:'none'}} onClick={()=>this.setState({filt: 'black', analyzed: "", onClassify:"",isClasifying:""})}>
                         <span style={{lineHeight:'150%'}}>Black List
                             <br></br>
                             <span style={{fontSize:'15px', color: 'gray'}}>{this.state.urls.filter((item) => item.state === 'black').length}</span> 
