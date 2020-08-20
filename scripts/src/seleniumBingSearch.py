@@ -75,7 +75,7 @@ def getUrlbyCEP(cep, search, i):
     f.write('\n')
     
     options = Options()
-    options.headless = True
+    # options.headless = True
 
     driver = webdriver.Firefox(options=options)
 
