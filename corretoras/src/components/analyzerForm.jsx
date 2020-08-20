@@ -5,6 +5,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Divider from '@material-ui/core/Divider';
+import creatLogo from '../icones_gerais/lapis_pagina_criar_anotacao.svg'
+import detailLogo from '../icones_gerais/folha_anotacoes.svg'
 class AnalyzerForm extends Component {
     constructor (props) {
         super(props);
@@ -47,7 +49,7 @@ class AnalyzerForm extends Component {
 
     }
     extractKeywords(){
-        if (typeof this.props.item.keywords == 'number')
+        if (typeof this.props.item.keywords == 'number' ||typeof this.props.item.keywords == 'undefined'  )
             return []
         let res = this.props.item.keywords.split(',');
         return res;
@@ -64,17 +66,17 @@ class AnalyzerForm extends Component {
             'domain':this.props.item.domain,
             'title':this.state.title,
             'content':this.state.content,
-            'resource':this.state.addAnot.value
+            'resource':this.state.addAnot
             
         }
-        console.log(data)
+        console.log('DATA TO SAVE',data)
         fetch('http://64.227.22.164:5000/api/anotacao/', {
             method: 'post',
             body: JSON.stringify(data),
             headers: { 'Content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => {console.log(data); }) 
+        .then(data => {console.log(data); this.setState({addAnot:''})}) 
         .catch(err => console.log(err))
         
     }
@@ -103,7 +105,7 @@ class AnalyzerForm extends Component {
             return response.json();
         })
         .then(data => {
-            this.setState({commentToShow:data}) ;console.log('DATAAAAAA',data)}) 
+            this.setState({commentToShow:data}) ;console.log(data)}) 
         .catch(err => console.log(err))
 
     }
@@ -129,7 +131,11 @@ class AnalyzerForm extends Component {
                             this.state.keywords.map(value => {
                                     return <div className='row d-flex' style={{backgroundColor:'#2a2a2a', marginBottom: '1%', padding: '1.5%', paddingLeft: '10%'}}>
                                         <div className="mr-auto p-2">{value}</div>
-                                        <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.setState({addAnot:{value}});console.log(this.state.addAnot)}} > <CreateIcon></CreateIcon> </button>
+                                        <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.setState({addAnot:{value}});console.log(this.state.addAnot)}} >
+                                            {/* <img src={creatLogo} width="40" height="40" style={{marginLeft:'10px'}}></img> */}
+                                            <CreateIcon></CreateIcon>
+
+                                        </button>
                                         <button className="btn btn-anotacoes p-2" value={value} onClick={()=>{this.loadComment(value); this.setState({addAnot:'',see:{value}});}} > <DescriptionIcon></DescriptionIcon> </button>
                                     </div>
                             }) :  this.state.imgUrls.map(value => {
@@ -157,7 +163,7 @@ class AnalyzerForm extends Component {
                                 <div className="form-group">
                                     <textarea class="form-control" id="content" rows="10" placeholder="escreva seu texto" value={this.state.content} onChange={evt => this.updateContentValue(evt)}></textarea>
                                 </div>
-                                <button type="button" class="btn btn-classify mb-2" style={{float:'left'}} onClick={()=>this.handleOnSent()}>salvar</button>
+                                <button type="button" class="btn btn-classify mb-2" style={{float:'left'}} onClick={()=>{this.handleOnSent()}}>salvar</button>
                                 <button type="button" class="btn btn-classify mb-2" style={{float:'right'}} onClick={()=>this.setState({addAnot:''})}>Cancel</button>
                             </form>
                         </div>
