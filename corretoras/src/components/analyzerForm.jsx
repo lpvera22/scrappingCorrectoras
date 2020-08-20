@@ -66,17 +66,17 @@ class AnalyzerForm extends Component {
             'domain':this.props.item.domain,
             'title':this.state.title,
             'content':this.state.content,
-            'resource':this.state.addAnot.value
+            'resource':this.state.addAnot
             
         }
-        console.log(data)
+        console.log('DATA TO SAVE',data)
         fetch('http://64.227.22.164:5000/api/anotacao/', {
             method: 'post',
             body: JSON.stringify(data),
             headers: { 'Content-type': 'application/json' }
         })
         .then(response => response.json())
-        .then(data => {console.log(data); }) 
+        .then(data => {console.log(data); this.setState({addAnot:''})}) 
         .catch(err => console.log(err))
         
     }
@@ -163,7 +163,7 @@ class AnalyzerForm extends Component {
                                 <div className="form-group">
                                     <textarea class="form-control" id="content" rows="10" placeholder="escreva seu texto" value={this.state.content} onChange={evt => this.updateContentValue(evt)}></textarea>
                                 </div>
-                                <button type="button" class="btn btn-classify mb-2" style={{float:'left'}} onClick={()=>{this.handleOnSent();this.setState({addAnot:''})}}>salvar</button>
+                                <button type="button" class="btn btn-classify mb-2" style={{float:'left'}} onClick={()=>{this.handleOnSent()}}>salvar</button>
                                 <button type="button" class="btn btn-classify mb-2" style={{float:'right'}} onClick={()=>this.setState({addAnot:''})}>Cancel</button>
                             </form>
                         </div>
