@@ -22,7 +22,7 @@ os.environ['KEY'] = 'AIzaSyAMgJ9UV5-81zIDTy0kMXYK2ILsfFYWh20'
 
 
 def convert(seconds):
-    seconds = seconds % (24 * 3600)
+    seconds = seconds % (24 * 3600) 
     hour = seconds // 3600
     seconds %= 3600
     minutes = seconds // 60
