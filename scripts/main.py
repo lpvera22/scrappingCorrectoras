@@ -3,8 +3,8 @@ import os
 import pathlib
 # print(sys.path)
 # sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
-sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
-from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleans
+sys.path.append('/root/projects/scrappingCorrectoras/database')
+from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleansNoMult
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
 from src.googleDetectLogo import findLogoOnUrl,getallImgUrlwithLogo
@@ -32,7 +32,7 @@ def convert(seconds):
 
 
 def main(search):
-    getUrlCleans(search,8)
+    getUrlCleansNoMult(search,8)
     # getUrlCleansMultiprocessing(search,8)
     # cleaningUrls(8)
     # dfCleaned = pd.read_csv('out/urlCleaned.csv')

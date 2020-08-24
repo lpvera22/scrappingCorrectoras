@@ -20,13 +20,15 @@ import multiprocessing
 from memory_profiler import profile
 import sys
 import logging
-# print(sys.path)
+from pyvirtualdisplay import Display
+print(sys.path)
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 
-#file = file[file.index >= 732664]
+# file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
 
-
+display = Display(visible=0, size=(800, 600))
+display.start()
 
 threadLocal = threading.local()
 
@@ -70,7 +72,7 @@ def getLinks(driver, url_cleans):
 # @profile
 def getUrlbyCEP(cep, search, i):
     #print(cep)
-    f = open('scripts/out/' + str(i) + '.csv', 'w')
+    f = open('scripts/out/' + str('urls') + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
     
@@ -83,12 +85,16 @@ def getUrlbyCEP(cep, search, i):
 
     driver.get(
         'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+    title = driver.title
+    print(title)
     
     for s in search:
         try:
             # print(s)
             driver.get(
                 'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+            title = driver.title
+            print(title)
             for c in cep:
                 # print(c)
 
@@ -98,18 +104,19 @@ def getUrlbyCEP(cep, search, i):
                 cepInput.clear()
                 cepInput.send_keys(c)
 
-                sleep(0.5)
+                sleep(2)
                 driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 
                 saveBtn = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.ID, "sv_btn"))
                 )
                 saveBtn.click()
-                sleep(0.5)
+                sleep(2)
 
                 try:
-                    sleep(0.5)
+                    sleep(2)
                     driver.find_element_by_id('geoname')
+                    print(driver.title)
                     continue
 
 
@@ -122,7 +129,8 @@ def getUrlbyCEP(cep, search, i):
                     searchInput.send_keys(s)
 
                     driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
-                    sleep(0.5)
+                    print(driver.title)
+                    sleep(2)
 
                     url_cleans = []
 
@@ -130,7 +138,7 @@ def getUrlbyCEP(cep, search, i):
 
                         url_cleans = getLinks(driver, url_cleans)
                         
-                        sleep(1.5)
+                        sleep(2)
                         try:
                             driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
                             url_cleans = getLinks(driver, url_cleans)
@@ -197,10 +205,11 @@ def chunkIt(seq, num):
 def testFunction(l):
     sleep(5)
 
-def getUrlCleans(search,num):
-    list_div = chunkIt(filecep, num)
-    for i in range(num):
-        getUrlbyCEP(list_div[i],search,i)
+def getUrlCleansNoMult(search,num):
+    with Display():
+        list_div = chunkIt(filecep, num)
+        for i in range(num):
+            getUrlbyCEP(list_div[i],search,i)
 
 def getUrlCleansMultiprocessing(search,num):
     
