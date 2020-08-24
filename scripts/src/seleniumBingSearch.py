@@ -24,7 +24,7 @@ import logging
 # print(sys.path)
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
-# file = file[file.index >= 732664]
+file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
 
 
@@ -77,7 +77,7 @@ def getUrlbyCEP(cep, search, i):
     f.write('\n')
     
     options = Options()
-    # options.headless = True
+    options.headless = True
 
     driver = webdriver.Firefox(options=options)
 

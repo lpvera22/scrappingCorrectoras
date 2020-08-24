@@ -33,23 +33,24 @@ def convert(seconds):
 
 def main(search):
     # getUrlCleansNoMult(search,8)
-    getUrlCleansMultiprocessing(search,2)
-    cleaningUrls(8)
-    dfCleaned = pd.read_csv('out/urlCleaned.csv')
-    f = open('out/imgUrls.csv', 'w')
-    f.write('url,imgSrc')
-    f.write('\n')
-    for url in dfCleaned['url'].to_list():
-         print(url) 
-         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-         seleniumGetImg(url, str(m.group(1)),f)
+    # getUrlCleansMultiprocessing(search,2)
+    # cleaningUrls(2)
+    # dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
+    
+    # f = open('scripts/out/imgUrls.csv', 'w')
+    # f.write('url;imgSrc')
+    # f.write('\n')
+    # for url in dfCleaned['url'].to_list():
+    #      print(url) 
+    #      m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+    #      seleniumGetImg(url, str(m.group(1)),f)
     getallImgUrlwithLogo()
-    findLogoOnUrl()
-    getAllFonts()
-    getAllColors()
-    addingFeatures()
-    addingColorsAndFontInfo()
-    getScrapingtoDb()
+    # findLogoOnUrl()
+    # getAllFonts()
+    # getAllColors()
+    # addingFeatures()
+    # addingColorsAndFontInfo()
+    # getScrapingtoDb()
     
     
 

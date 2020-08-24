@@ -103,13 +103,13 @@ def seleniumGetImg(url, path,f):
                 
                 f.write(url + ';' + src)
                 f.write('\n')
-                if not os.path.isdir('out/img/' + path):
+                if not os.path.isdir('scripts/out/img/' + path):
                     
-                    os.makedirs('out/img/' + path)
+                    os.makedirs('scripts/out/img/' + path)
                 
                 # print('existe')
                     
-                with open('out/img/' + path + '/' + str(i) + '.png', 'wb') as outfile:
+                with open('scripts/out/img/' + path + '/' + str(i) + '.png', 'wb') as outfile:
                     outfile.write(r.content)
 
 

@@ -106,6 +106,7 @@ def have_logo(uri,keywordLogo):
     """Detects logos in the file located in Google Cloud Storage or on the Web.
     """
     try:
+        print(uri)
         image = vision.types.Image()
         image.source.image_uri = uri
 
@@ -118,7 +119,7 @@ def have_logo(uri,keywordLogo):
             
             for logo in logos:
                 exist = logo.description.find(keywordLogo)
-                if exist:
+                if exist!=-1:
         
                     return True
                 else:
@@ -129,12 +130,14 @@ def have_logo(uri,keywordLogo):
 
     
 def getallImgUrlwithLogo():
-    dfImgUrls=pd.read_csv('out/imgUrls.csv',sep=';')
+    dfImgUrls=pd.read_csv('scripts/out/imgUrls.csv',sep=';')
+    print(dfImgUrls)
     fpartial=partial(have_logo,keywordLogo='SulAmérica')
-    dfImgUrls['logo']=dfImgUrls['url'].apply(have_logo)
+    dfImgUrls['logo']=dfImgUrls['imgSrc'].apply(fpartial)
     dfImgUrls=dfImgUrls[dfImgUrls['logo']==True]
     dfImgUrls=dfImgUrls[['url','imgSrc']]
-    dfImgUrls.to_csv('out/imgUrls',sep=';')
+    print(dfImgUrls)
+    # dfImgUrls.to_csv('scripts/out/imgUrls.csv',sep=';')
     
     
 def findLogoOnUrl():
