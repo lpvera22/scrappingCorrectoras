@@ -4,7 +4,7 @@ import pathlib
 # print(sys.path)
 sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
 # sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
-from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleans
+from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleansNoMult,getUrlCleans
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
 from src.googleDetectLogo import findLogoOnUrl,getallImgUrlwithLogo
@@ -32,24 +32,24 @@ def convert(seconds):
 
 
 def main(search):
-    getUrlCleansNoMult(search,8)
-    # getUrlCleansMultiprocessing(search,8)
-    # cleaningUrls(8)
-    # dfCleaned = pd.read_csv('out/urlCleaned.csv')
-    # f = open('out/imgUrls.csv', 'w')
-    # f.write('url,imgSrc')
-    # f.write('\n')
-    # for url in dfCleaned['url'].to_list():
-    #      print(url) 
-    #      m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-    #      seleniumGetImg(url, str(m.group(1)),f)
-    # getallImgUrlwithLogo()
-    # findLogoOnUrl()
-    # getAllFonts()
-    # getAllColors()
-    # addingFeatures()
-    # addingColorsAndFontInfo()
-    # getScrapingtoDb()
+    # getUrlCleansNoMult(search,8)
+    getUrlCleansMultiprocessing(search,2)
+    cleaningUrls(8)
+    dfCleaned = pd.read_csv('out/urlCleaned.csv')
+    f = open('out/imgUrls.csv', 'w')
+    f.write('url,imgSrc')
+    f.write('\n')
+    for url in dfCleaned['url'].to_list():
+         print(url) 
+         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+         seleniumGetImg(url, str(m.group(1)),f)
+    getallImgUrlwithLogo()
+    findLogoOnUrl()
+    getAllFonts()
+    getAllColors()
+    addingFeatures()
+    addingColorsAndFontInfo()
+    getScrapingtoDb()
     
     
 

@@ -20,15 +20,14 @@ import multiprocessing
 from memory_profiler import profile
 import sys
 import logging
-from pyvirtualdisplay import Display
-print(sys.path)
+# from pyvirtualdisplay import Display
+# print(sys.path)
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
-
+urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
 # file = file[file.index >= 732664]
 filecep = file['cep'].tolist()
 
-display = Display(visible=0, size=(800, 600))
-display.start()
+
 
 threadLocal = threading.local()
 
@@ -45,7 +44,8 @@ def get_driver():
     return driver
 
 
-def getLinks(driver, url_cleans):
+def getLinks(driver,urls):
+    
     liElements = driver.find_elements_by_class_name('b_algo')
     liElementsAds = driver.find_elements_by_class_name('b_ad')
     # print('liElements and ads---->',liElements,liElementsAds)
@@ -55,7 +55,7 @@ def getLinks(driver, url_cleans):
         except Exception as e: 
             print("error on links",e)
         # print('link---------->',link)
-        url_cleans.append(link)
+        urls.append(link)
         # print(url_cleans)
 
     for i in liElementsAds:
@@ -63,21 +63,21 @@ def getLinks(driver, url_cleans):
         # link = i.find_element_by_xpath('./ul/li/div/div[1]/div/div/cite/a').text
         link = i.find_element_by_xpath('.//*[contains(text(), "http")]').text
         # print('link---------->',link)
-        url_cleans.append(link)
+        urls.append(link)
         # print(url_cleans)
 
-    return url_cleans
+    return urls
 
 
 # @profile
 def getUrlbyCEP(cep, search, i):
     #print(cep)
-    f = open('scripts/out/' + str('urls') + '.csv', 'w')
+    f = open('scripts/out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
     
     options = Options()
-    options.headless = True
+    # options.headless = True
 
     driver = webdriver.Firefox(options=options)
 
@@ -85,8 +85,8 @@ def getUrlbyCEP(cep, search, i):
 
     driver.get(
         'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-    title = driver.title
-    print(title)
+    # title = driver.title
+    # print(title)
     
     for s in search:
         try:
@@ -96,6 +96,11 @@ def getUrlbyCEP(cep, search, i):
             title = driver.title
             print(title)
             for c in cep:
+                driver.get(
+                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+                # title = driver.title
+                # print(title)
+                sleep(2)
                 # print(c)
 
                 cepInput = driver.find_element_by_id('geoname')
@@ -106,7 +111,7 @@ def getUrlbyCEP(cep, search, i):
 
                 sleep(2)
                 driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-
+                sleep(2)
                 saveBtn = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.ID, "sv_btn"))
                 )
@@ -129,42 +134,57 @@ def getUrlbyCEP(cep, search, i):
                     searchInput.send_keys(s)
 
                     driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
-                    print(driver.title)
+                    # print(driver.title)
                     sleep(2)
 
                     url_cleans = []
 
-                    for j in range(2):
+                    
 
-                        url_cleans = getLinks(driver, url_cleans)
-                        
+                    url_cleans = getLinks(driver,url_cleans)
+                    
+                    sleep(2)
+                    
+                    more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
+                    if more:
+                        more.click()
+                
                         sleep(2)
-                        try:
-                            driver.find_element_by_xpath('//*[@title="Próxima página"]').click()
-                            url_cleans = getLinks(driver, url_cleans)
-                            print('urlCleans',url_cleans)
-                            # print('found next page....')
-                        except:
-                            continue
-
-                        # print('not found next page....=================>>>>>>>>>>>>',url_cleans)
+                        url_cleans = getLinks(driver,url_cleans)               
+                        
+                    
+                        
+                    if len(url_cleans)>0:
+                        
+                        
+                        
                         for u in url_cleans:
-                            # print(u)
-                            print(u,c)
-                            # res.append((u,c))
-                            f.write(str(u) + ',' + str(c))
-                            f.write('\n')
+                                           
+                            issave=True
+                            for z in urlsNot['url'].to_list():
+                                # print(z)
+                                if u.find(z)!=-1:
+                                    # print(u)
+                                    issave=False
+                                    
+                            
+                            if issave:
+                                
+                                print(u,c)
+                                f.write(str(u) + ',' + str(c))
+                                f.write('\n')
 
                     driver.get(
                         'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-        except:
-            print('somethong went wrong whith this',c,'cep')
+        except Exception as e: 
+            print("error on cep",e)
             
-            continue
+            
+            # continue
 
         
-        f.close()
-        driver.quit()
+    f.close()
+    
 
 
 def getUrlCleans(search):
@@ -206,10 +226,13 @@ def testFunction(l):
     sleep(5)
 
 def getUrlCleansNoMult(search,num):
-    with Display():
-        list_div = chunkIt(filecep, num)
-        for i in range(num):
-            getUrlbyCEP(list_div[i],search,i)
+    # with Display():
+    #     list_div = chunkIt(filecep, num)
+    #     for i in range(num):
+    #         getUrlbyCEP(list_div[i],search,i)
+    # list_div = chunkIt(filecep, num)
+    
+    getUrlbyCEP(filecep,search,0)
 
 def getUrlCleansMultiprocessing(search,num):
     
@@ -230,4 +253,7 @@ def getUrlCleansMultiprocessing(search,num):
     for p in range(num):
         pro[p].join()
 
+    
+# if __name__ == '__main__':
+#     print(urlsNot)
     
