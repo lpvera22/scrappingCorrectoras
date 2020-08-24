@@ -2,8 +2,8 @@ import sys
 import os
 import pathlib
 # print(sys.path)
-# sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
-sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
+sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
+# sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleans
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
