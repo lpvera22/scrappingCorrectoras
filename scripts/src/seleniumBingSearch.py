@@ -20,7 +20,7 @@ import multiprocessing
 from memory_profiler import profile
 import sys
 import logging
-# from pyvirtualdisplay import Display
+from pyvirtualdisplay import Display
 # print(sys.path)
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
@@ -72,119 +72,121 @@ def getLinks(driver,urls):
 # @profile
 def getUrlbyCEP(cep, search, i):
     #print(cep)
-    f = open('scripts/out/' + str(i) + '.csv', 'w')
-    f.write('url,cep')
-    f.write('\n')
-    
-    options = Options()
-    # options.headless = True
-
-    driver = webdriver.Firefox(options=options)
-
-    # driver = get_driver()
-
-    driver.get(
-        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-    # title = driver.title
-    # print(title)
-    
-    for s in search:
-        try:
-            # print(s)
-            driver.get(
-                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-            title = driver.title
-            print(title)
-            for c in cep:
-                driver.get(
-                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-                # title = driver.title
-                # print(title)
-                sleep(2)
-                # print(c)
-
-                cepInput = driver.find_element_by_id('geoname')
-                # print(cepInput)
-
-                cepInput.clear()
-                cepInput.send_keys(c)
-
-                sleep(2)
-                driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-                sleep(2)
-                saveBtn = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.ID, "sv_btn"))
-                )
-                saveBtn.click()
-                sleep(2)
-
-                try:
-                    sleep(2)
-                    driver.find_element_by_id('geoname')
-                    print(driver.title)
-                    continue
-
-
-
-
-                except:
-                    #print('continue to search...')
-                    searchInput = driver.find_element_by_id('sb_form_q')
-                    searchInput.clear()
-                    searchInput.send_keys(s)
-
-                    driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
-                    # print(driver.title)
-                    sleep(2)
-
-                    url_cleans = []
-
-                    
-
-                    url_cleans = getLinks(driver,url_cleans)
-                    
-                    sleep(2)
-                    
-                    more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
-                    if more:
-                        more.click()
-                
-                        sleep(2)
-                        url_cleans = getLinks(driver,url_cleans)               
-                        
-                    
-                        
-                    if len(url_cleans)>0:
-                        
-                        
-                        
-                        for u in url_cleans:
-                                           
-                            issave=True
-                            for z in urlsNot['url'].to_list():
-                                # print(z)
-                                if u.find(z)!=-1:
-                                    # print(u)
-                                    issave=False
-                                    
-                            
-                            if issave:
-                                
-                                print(u,c)
-                                f.write(str(u) + ',' + str(c))
-                                f.write('\n')
-
-                    driver.get(
-                        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-        except Exception as e: 
-            print("error on cep",e)
-            
-            
-            # continue
-
+    with Display():
+        f = open('scripts/out/' + str(i) + '.csv', 'w')
+        f.write('url,cep')
+        f.write('\n')
         
-    f.close()
-    
+        options = Options()
+        options.headless = True
+
+        driver = webdriver.Firefox(options=options)
+
+        # driver = get_driver()
+
+        driver.get(
+            'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+        # title = driver.title
+        # print(title)
+        
+        for s in search:
+            try:
+                # print(s)
+                driver.get(
+                    'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+                title = driver.title
+                print(title)
+                for c in cep:
+                    driver.get(
+                    'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+                    # title = driver.title
+                    # print(title)
+                    sleep(2)
+                    # print(c)
+
+                    cepInput = driver.find_element_by_id('geoname')
+                    # print(cepInput)
+
+                    cepInput.clear()
+                    cepInput.send_keys(c)
+
+                    sleep(2)
+                    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+                    sleep(2)
+                    saveBtn = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.ID, "sv_btn"))
+                    )
+                    saveBtn.click()
+                    sleep(2)
+
+                    try:
+                        sleep(2)
+                        driver.find_element_by_id('geoname')
+                        print(driver.title)
+                        continue
+
+
+
+
+                    except:
+                        #print('continue to search...')
+                        searchInput = driver.find_element_by_id('sb_form_q')
+                        searchInput.clear()
+                        searchInput.send_keys(s)
+
+                        driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
+                        # print(driver.title)
+                        sleep(2)
+
+                        url_cleans = []
+
+                        
+
+                        url_cleans = getLinks(driver,url_cleans)
+                        
+                        sleep(2)
+                        
+                        more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
+                        if more:
+                            more.click()
+                    
+                            sleep(2)
+                            url_cleans = getLinks(driver,url_cleans)               
+                            
+                        
+                            
+                        if len(url_cleans)>0:
+                            
+                            
+                            
+                            for u in url_cleans:
+                                            
+                                issave=True
+                                for z in urlsNot['url'].to_list():
+                                    # print(z)
+                                    if u.find(z)!=-1:
+                                        # print(u)
+                                        issave=False
+                                        
+                                
+                                if issave:
+                                    
+                                    print(u,c)
+                                    f.write(str(u) + ',' + str(c))
+                                    f.write('\n')
+
+                        driver.get(
+                            'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+            except Exception as e: 
+                print("error on cep",e)
+                
+                
+                # continue
+
+            
+        f.close()
+        # driver.quit()
+        
 
 
 def getUrlCleans(search):
@@ -226,13 +228,13 @@ def testFunction(l):
     sleep(5)
 
 def getUrlCleansNoMult(search,num):
-    # with Display():
+    with Display():
     #     list_div = chunkIt(filecep, num)
     #     for i in range(num):
     #         getUrlbyCEP(list_div[i],search,i)
     # list_div = chunkIt(filecep, num)
     
-    getUrlbyCEP(filecep,search,0)
+        getUrlbyCEP(filecep,search,0)
 
 def getUrlCleansMultiprocessing(search,num):
     

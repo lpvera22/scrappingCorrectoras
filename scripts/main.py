@@ -2,8 +2,8 @@ import sys
 import os
 import pathlib
 # print(sys.path)
-sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
-# sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
+# sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
+sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleansNoMult,getUrlCleans
 from src.cleaningUrls import cleaningUrls
 from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
@@ -32,8 +32,8 @@ def convert(seconds):
 
 
 def main(search):
-    # getUrlCleansNoMult(search,8)
-    getUrlCleansMultiprocessing(search,2)
+    # getUrlCleansNoMult(search,0)
+    getUrlCleansMultiprocessing(search,8)
     cleaningUrls(8)
     dfCleaned = pd.read_csv('out/urlCleaned.csv')
     f = open('out/imgUrls.csv', 'w')
