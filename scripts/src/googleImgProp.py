@@ -77,3 +77,15 @@ def getAllColors():
                 urlColors[f] = colors
     with open('scripts/out/urlColors.json', 'w') as json_file:
         json.dump(urlColors, json_file)
+
+
+def getColorsByImgUrl():
+    df = pd.read_csv('scripts/out/urlsFontImg.csv',sep=';')
+    
+    df['colors']=df['imgSrc'].apply(detect_properties_uri)
+    df.to_csv('scripts/out/urlsFontColorImg.csv',sep=';',index=False)
+    print (df)
+    
+    
+    
+    

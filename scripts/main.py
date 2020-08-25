@@ -6,10 +6,10 @@ sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
 # sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleansNoMult,getUrlCleans
 from src.cleaningUrls import cleaningUrls
-from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
+from src.addingFeatures import addingFeatures, addingColorsAndFontInfo,addingFeaturesByImgUrl
 from src.googleDetectLogo import findLogoOnUrl,getallImgUrlwithLogo
-from src.getFontImg import getAllFonts
-from src.googleImgProp import getAllColors
+from src.getFontImg import getAllFonts,getFontsByUrlImg
+from src.googleImgProp import getAllColors,getColorsByImgUrl
 from src.ScrapingToDb import getScrapingtoDb
 from src.getallImg import seleniumGetImg
 
@@ -44,11 +44,18 @@ def main(search):
     #      print(url) 
     #      m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
     #      seleniumGetImg(url, str(m.group(1)),f)
-    getallImgUrlwithLogo()
-    # findLogoOnUrl()
+    # getallImgUrlwithLogo()
+    # #this is t remove
+    # # findLogoOnUrl()
+    
+    # getFontsByUrlImg()
+    
     # getAllFonts()
+    
     # getAllColors()
+    # getColorsByImgUrl()
     # addingFeatures()
+    addingFeaturesByImgUrl()
     # addingColorsAndFontInfo()
     # getScrapingtoDb()
     

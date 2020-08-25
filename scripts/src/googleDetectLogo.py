@@ -136,8 +136,8 @@ def getallImgUrlwithLogo():
     dfImgUrls['logo']=dfImgUrls['imgSrc'].apply(fpartial)
     dfImgUrls=dfImgUrls[dfImgUrls['logo']==True]
     dfImgUrls=dfImgUrls[['url','imgSrc']]
-    print(dfImgUrls)
-    # dfImgUrls.to_csv('scripts/out/imgUrls.csv',sep=';')
+    print('urlsIMG com logo',dfImgUrls)
+    dfImgUrls.to_csv('scripts/out/imgUrls.csv',sep=';',index=False)
     
     
 def findLogoOnUrl():
