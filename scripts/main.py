@@ -36,26 +36,27 @@ def main(search):
     getUrlCleansMultiprocessing(search,8)
     cleaningUrls(8)
     dfCleaned = pd.read_csv('out/urlCleaned.csv')
-    f = open('out/imgUrls.csv', 'w')
-    f.write('url,imgSrc')
-    f.write('\n')
-    for url in dfCleaned['url'].to_list():
-         print(url) 
-         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-         seleniumGetImg(url, str(m.group(1)),f)
-    getallImgUrlwithLogo()
-    findLogoOnUrl()
-    getAllFonts()
-    getAllColors()
-    addingFeatures()
-    addingColorsAndFontInfo()
-    getScrapingtoDb()
+    print(dfCleaned)
+    # f = open('out/imgUrls.csv', 'w')
+    # f.write('url,imgSrc')
+    # f.write('\n')
+    # for url in dfCleaned['url'].to_list():
+    #      print(url) 
+    #      m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+    #      seleniumGetImg(url, str(m.group(1)),f)
+    # getallImgUrlwithLogo()
+    # findLogoOnUrl()
+    # getAllFonts()
+    # getAllColors()
+    # addingFeatures()
+    # addingColorsAndFontInfo()
+    # getScrapingtoDb()
     
     
 
 
 if __name__ == '__main__':
     start_time = time.time()
-    keywords = ['SulAmerica', 'sulamerica']
+    keywords = ['SulAmerica']
     main(keywords)
     print('---%s seconds---' % (convert(time.time() - start_time)))

@@ -21,7 +21,7 @@ from memory_profiler import profile
 import sys
 import logging
 from pyvirtualdisplay import Display
-# print(sys.path)
+print(sys.path)
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
 # file = file[file.index >= 732664]
@@ -122,14 +122,15 @@ def getUrlbyCEP(cep, search, i):
                     try:
                         sleep(2)
                         driver.find_element_by_id('geoname')
-                        print(driver.title)
+                        # print(driver.title)
+                        # print(driver.getCurrentUrl())
                         continue
 
 
 
 
                     except:
-                        #print('continue to search...')
+                        print('continue to search...')
                         searchInput = driver.find_element_by_id('sb_form_q')
                         searchInput.clear()
                         searchInput.send_keys(s)
@@ -138,20 +139,23 @@ def getUrlbyCEP(cep, search, i):
                         # print(driver.title)
                         sleep(2)
 
-                        url_cleans = []
-
+                        url_cleans = [] 
+                       
                         
-
-                        url_cleans = getLinks(driver,url_cleans)
                         
                         sleep(2)
+                        try:
+                            url_cleans = getLinks(driver,url_cleans)
+                            more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
+
+                            if more:
+                                more.click()
                         
-                        more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
-                        if more:
-                            more.click()
-                    
-                            sleep(2)
-                            url_cleans = getLinks(driver,url_cleans)               
+                                sleep(2)
+                                url_cleans = getLinks(driver,url_cleans)
+                        except:
+                            url_cleans = getLinks(driver,url_cleans)
+
                             
                         
                             
@@ -171,17 +175,18 @@ def getUrlbyCEP(cep, search, i):
                                 
                                 if issave:
                                     
-                                    print(u,c)
+                                    print('SAVE-->',u,c)
                                     f.write(str(u) + ',' + str(c))
                                     f.write('\n')
-
+                        else:
+                            print('NO URLSSS----->',driver.getCurrentUrl())
                         driver.get(
                             'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
             except Exception as e: 
                 print("error on cep",e)
+                driver.get('https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
                 
-                
-                # continue
+                continue
 
             
         f.close()

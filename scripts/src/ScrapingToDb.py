@@ -1,7 +1,7 @@
 import sys
-# print(sys.path)
+print(sys.path)
 
-#sys.path.append('database/')
+sys.path.append('database/')
 from db import MongoAPI
 import pandas as pd
 
