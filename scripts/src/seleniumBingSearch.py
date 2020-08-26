@@ -72,130 +72,120 @@ def getLinks(driver,urls):
 # @profile
 def getUrlbyCEP(cep, search, i):
     #print(cep)
-<<<<<<< HEAD
-    with Display():
-        f = open('scripts/out/' + str(i) + '.csv', 'w')
-        f.write('url,cep')
-        f.write('\n')
-        
-        options = Options()
-        options.headless = True
-=======
     f = open('scripts/out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
     
     options = Options()
     options.headless = True
->>>>>>> 89c86df03a8baba2693bc88cf0fb18c60543bd3f
 
-        driver = webdriver.Firefox(options=options)
+    driver = webdriver.Firefox(options=options)
 
-        # driver = get_driver()
+    # driver = get_driver()
 
-        driver.get(
-            'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-        # title = driver.title
-        # print(title)
-        
-        for s in search:
-            try:
-                # print(s)
+    driver.get(
+        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+    # title = driver.title
+    # print(title)
+    
+    for s in search:
+        try:
+            # print(s)
+            driver.get(
+                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+            title = driver.title
+            print(title)
+            for c in cep:
                 driver.get(
-                    'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-                title = driver.title
-                print(title)
-                for c in cep:
-                    driver.get(
-                    'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-                    # title = driver.title
-                    # print(title)
-                    sleep(2)
-                    # print(c)
+                'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+                # title = driver.title
+                # print(title)
+                sleep(2)
+                # print(c)
 
-                    cepInput = driver.find_element_by_id('geoname')
-                    # print(cepInput)
+                cepInput = driver.find_element_by_id('geoname')
+                # print(cepInput)
 
-                    cepInput.clear()
-                    cepInput.send_keys(c)
+                cepInput.clear()
+                cepInput.send_keys(c)
 
+                sleep(2)
+                driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+                sleep(2)
+                saveBtn = WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.ID, "sv_btn"))
+                )
+                saveBtn.click()
+                sleep(2)
+
+                try:
                     sleep(2)
-                    driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-                    sleep(2)
-                    saveBtn = WebDriverWait(driver, 10).until(
-                        EC.presence_of_element_located((By.ID, "sv_btn"))
-                    )
-                    saveBtn.click()
+                    driver.find_element_by_id('geoname')
+                    # print(driver.title)
+                    # print(driver.getCurrentUrl())
+                    continue
+
+
+
+
+                except:
+                    print('continue to search...')
+                    searchInput = driver.find_element_by_id('sb_form_q')
+                    searchInput.clear()
+                    searchInput.send_keys(s)
+
+                    driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
+                    # print(driver.title)
                     sleep(2)
 
+                    url_cleans = [] 
+                    
+                    
+                    
+                    sleep(2)
                     try:
-                        sleep(2)
-                        driver.find_element_by_id('geoname')
-                        # print(driver.title)
-                        # print(driver.getCurrentUrl())
-                        continue
+                        url_cleans = getLinks(driver,url_cleans)
+                        more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
 
-
-
-
+                        if more:
+                            more.click()
+                    
+                            sleep(2)
+                            url_cleans = getLinks(driver,url_cleans)
                     except:
-                        print('continue to search...')
-                        searchInput = driver.find_element_by_id('sb_form_q')
-                        searchInput.clear()
-                        searchInput.send_keys(s)
+                        url_cleans = getLinks(driver,url_cleans)
 
-                        driver.find_element_by_id('sb_form_q').send_keys(Keys.ENTER)
-                        # print(driver.title)
-                        sleep(2)
-
-                        url_cleans = [] 
-                       
+                        
+                    
+                        
+                    if len(url_cleans)>0:
                         
                         
-                        sleep(2)
-                        try:
-                            url_cleans = getLinks(driver,url_cleans)
-                            more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
-
-                            if more:
-                                more.click()
                         
-                                sleep(2)
-                                url_cleans = getLinks(driver,url_cleans)
-                        except:
-                            url_cleans = getLinks(driver,url_cleans)
-
-                            
-                        
-                            
-                        if len(url_cleans)>0:
-                            
-                            
-                            
-                            for u in url_cleans:
-                                            
-                                issave=True
-                                for z in urlsNot['url'].to_list():
-                                    # print(z)
-                                    if u.find(z)!=-1:
-                                        # print(u)
-                                        issave=False
+                        for u in url_cleans:
                                         
-                                
-                                if issave:
+                            issave=True
+                            for z in urlsNot['url'].to_list():
+                                # print(z)
+                                if u.find(z)!=-1:
+                                    # print(u)
+                                    issave=False
                                     
-                                    print('SAVE-->',u,c)
-                                    f.write(str(u) + ',' + str(c))
-                                    f.write('\n')
-                        else:
-                            print('NO URLSSS----->',driver.getCurrentUrl())
-                        driver.get(
-                            'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-            except Exception as e: 
-                print("error on cep",e)
-                driver.get('https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-                
-                continue
+                            
+                            if issave:
+                                
+                                print('SAVE-->',u,c)
+                                f.write(str(u) + ',' + str(c))
+                                f.write('\n')
+                    else:
+                        print('NO URLSSS----->',driver.getCurrentUrl())
+                    driver.get(
+                        'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+        except Exception as e: 
+            
+            driver.get('https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
+            
+            continue
 
             
         f.close()

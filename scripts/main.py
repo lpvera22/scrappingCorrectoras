@@ -33,7 +33,7 @@ def convert(seconds):
 
 
 def main(search):
-    # getUrlCleansNoMult(search,8)
+    # getUrlCleansNoMult(search,2)
     getUrlCleansMultiprocessing(search,2)
     cleaningUrls(2)
     dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
