@@ -24,7 +24,7 @@ from pyvirtualdisplay import Display
 print(sys.path)
 file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
-# file = file[file.index >= 732664]
+file = file[file.index >= 732714]
 filecep = file['cep'].tolist()
 
 
@@ -72,6 +72,7 @@ def getLinks(driver,urls):
 # @profile
 def getUrlbyCEP(cep, search, i):
     #print(cep)
+<<<<<<< HEAD
     with Display():
         f = open('scripts/out/' + str(i) + '.csv', 'w')
         f.write('url,cep')
@@ -79,6 +80,14 @@ def getUrlbyCEP(cep, search, i):
         
         options = Options()
         options.headless = True
+=======
+    f = open('scripts/out/' + str(i) + '.csv', 'w')
+    f.write('url,cep')
+    f.write('\n')
+    
+    options = Options()
+    options.headless = True
+>>>>>>> 89c86df03a8baba2693bc88cf0fb18c60543bd3f
 
         driver = webdriver.Firefox(options=options)
 

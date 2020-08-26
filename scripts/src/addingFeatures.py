@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+print(sys.path)
 #sys.path.append('/media/laura/dados/Projects/Work/searchKeyword')
 from src.sslInfo import checkSSL
 from bs4 import BeautifulSoup
@@ -11,7 +12,7 @@ import os
 from google.cloud import storage
 import re
 from datetime import datetime
-
+print(sys.path)
 PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS
@@ -74,7 +75,34 @@ def addMeta(df):
     return df
 
 
-
+def addingFeaturesByImgUrl():
+    df = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
+    
+    urlsToDB=df['url'].unique()
+    dfurlsToDB=pd.DataFrame(urlsToDB,columns=['url'])
+    dfurlsToDB['domain'] = dfurlsToDB['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+    dfurlsToDB['SSL'] = dfurlsToDB['url'].apply(checkSSL)
+    
+    
+    
+    dfurlsToDB=dfurlsToDB[dfurlsToDB['SSL']==True]
+    
+    
+    dfurlsToDB['title'] = dfurlsToDB['url'].apply(getTitle)
+    
+    dfurlsToDB['keywords'] = dfurlsToDB['url'].apply(getKeywords)
+    
+    dfurlsToDB = checkAll(dfurlsToDB)
+    
+    
+    dfurlsToDB=dfurlsToDB[dfurlsToDB['malicious']==False]
+    
+    dfurlsToDB['date']=datetime.now()
+    
+    dfurlsToDB=dfurlsToDB[['url','title','keywords','date','domain']]
+    
+    dfurlsToDB.to_csv('scripts/out/urlsToDB.csv', index=False)
+    df.to_csv('scripts/out/imgstoDB.csv', index=False)
 def addingFeatures():
     # df = pd.read_csv('scripts/out/urlCleaned.csv')
     df = pd.read_csv('scripts/out/urlLogosCrop.csv')

@@ -33,6 +33,8 @@ def upload_local_directory_to_gcs(local_path, gcs_path):
             blob.upload_from_filename(local_file)
 
 
+
+    
 def whatFontApi(bucket, blob):
     urlJson = getUrl(bucket, blob)
     # urlJson = 'https://storage.googleapis.com/fileimageapibucket/json/configAPi.json'
@@ -111,6 +113,15 @@ def downloadJsonfile():
     blob=bucket.get_blob('json/configApi.json')
     fileName=blob.name.split('/')[-1]
     blob.download_to_filename(fileName)
+def getFontsByUrlImg():
+    df = pd.read_csv('scripts/out/imgUrls.csv',sep=';')
+    print(df)
+    df=df.dropna()
+    df['domain'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+    downloadJsonfile()
+    df['font']=df['imgSrc'].apply(getFont)
+    print('final',df)
+    df.to_csv('scripts/out/urlsFontImg.csv',sep=';',index=False)
 def getAllFonts():
     df = pd.read_csv('scripts/out/urlLogosCrop.csv')
 
@@ -153,3 +164,24 @@ def getAllFonts():
     with open('scripts/out/urlFont.json', 'w') as json_file:
         json.dump(urlFont, json_file)
 
+def getFont(imgurl):
+    modifyJsonFileUpload(imgurl)
+    font = whatFontApi(bucket, bucket.blob('json/configApi.json'))
+    if font !=-1:
+        if isinstance(font, list):
+            return font[0]['title']
+            
+        else:
+
+            modifyJsonAllUpload(font)
+            allFont = whatFontApi(bucket, bucket.blob('json/calApiFont.json'))
+            if allFont!=-1:
+                
+                return allFont[0]['title']
+                
+            else:
+                
+                return None
+        resetConfigApiJson()
+    else:
+        return None

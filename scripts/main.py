@@ -3,13 +3,14 @@ import os
 import pathlib
 # print(sys.path)
 # sys.path.append('/media/laura/dados/Projects/Work/searchKeyword/database')
-sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
+# sys.path.append('/home/lvera/projects/scrappingCorrectoras/database')
+sys.path.append('/root/projects/scrappingCorrectoras/database')
 from src.seleniumBingSearch import getUrlCleansMultiprocessing,getUrlCleansNoMult,getUrlCleans
 from src.cleaningUrls import cleaningUrls
-from src.addingFeatures import addingFeatures, addingColorsAndFontInfo
+from src.addingFeatures import addingFeatures, addingColorsAndFontInfo,addingFeaturesByImgUrl
 from src.googleDetectLogo import findLogoOnUrl,getallImgUrlwithLogo
-from src.getFontImg import getAllFonts
-from src.googleImgProp import getAllColors
+from src.getFontImg import getAllFonts,getFontsByUrlImg
+from src.googleImgProp import getAllColors,getColorsByImgUrl
 from src.ScrapingToDb import getScrapingtoDb
 from src.getallImg import seleniumGetImg
 
@@ -32,25 +33,33 @@ def convert(seconds):
 
 
 def main(search):
-    # getUrlCleansNoMult(search,0)
-    getUrlCleansMultiprocessing(search,8)
-    cleaningUrls(8)
-    dfCleaned = pd.read_csv('out/urlCleaned.csv')
-    print(dfCleaned)
-    # f = open('out/imgUrls.csv', 'w')
-    # f.write('url,imgSrc')
-    # f.write('\n')
-    # for url in dfCleaned['url'].to_list():
-    #      print(url) 
-    #      m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-    #      seleniumGetImg(url, str(m.group(1)),f)
-    # getallImgUrlwithLogo()
-    # findLogoOnUrl()
-    # getAllFonts()
-    # getAllColors()
-    # addingFeatures()
+    # getUrlCleansNoMult(search,8)
+    getUrlCleansMultiprocessing(search,2)
+    cleaningUrls(2)
+    dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
+    
+    f = open('scripts/out/imgUrls.csv', 'w')
+    f.write('url;imgSrc')
+    f.write('\n')
+    for url in dfCleaned['url'].to_list():
+         print(url) 
+         m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+         seleniumGetImg(url, str(m.group(1)),f)
+    getallImgUrlwithLogo()
+    
+    
+    
+    getFontsByUrlImg()
+    
+    
+    getColorsByImgUrl()
+    
+    addingFeaturesByImgUrl()
+    
+    #to delete
     # addingColorsAndFontInfo()
-    # getScrapingtoDb()
+    
+    getScrapingtoDb()
     
     
 
