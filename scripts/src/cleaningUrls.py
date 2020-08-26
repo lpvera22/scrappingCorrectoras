@@ -31,7 +31,7 @@ def cleaningUrls(n):
     urls['url'] = urls['url'].astype(str)
     urls['url'] = urls['url'].apply(regexClean)
     
-    urls = urls.drop_duplicates(subset=['url'], keep='last')
+    urls = urls.drop_duplicates(subset=['url','cep'], keep='last')
 
     urls['on'] = urls['url'].apply(isUp)
     final = urls[urls['on'] == True]

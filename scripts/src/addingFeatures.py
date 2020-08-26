@@ -77,10 +77,14 @@ def addMeta(df):
 
 def addingFeaturesByImgUrl():
     df = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
+    dfCleaned=pd.read_csv('scripts/out/urlCleaned.csv')
+    dfurlsToDB=df[['url','cep']]
+    dfurlsToDB.drop_duplicates(inplace=True)
+    print(dfurlsToDB)
     
-    urlsToDB=df['url'].unique()
-    dfurlsToDB=pd.DataFrame(urlsToDB,columns=['url'])
     dfurlsToDB['domain'] = dfurlsToDB['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
+    
+
     dfurlsToDB['SSL'] = dfurlsToDB['url'].apply(checkSSL)
     
     
@@ -98,8 +102,8 @@ def addingFeaturesByImgUrl():
     dfurlsToDB=dfurlsToDB[dfurlsToDB['malicious']==False]
     
     dfurlsToDB['date']=datetime.now()
-    
-    dfurlsToDB=dfurlsToDB[['url','title','keywords','date','domain']]
+    print(dfurlsToDB)
+    dfurlsToDB=dfurlsToDB[['url','cep','title','keywords','date','domain']]
     
     dfurlsToDB.to_csv('scripts/out/urlsToDB.csv', index=False)
     df.to_csv('scripts/out/imgstoDB.csv', index=False)

@@ -22,10 +22,10 @@ import sys
 import logging
 from pyvirtualdisplay import Display
 print(sys.path)
-file = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
+filec = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
-file = file[file.index >= 732714]
-filecep = file['cep'].tolist()
+filec = filec[filec.index >= 732714]
+filecep = filec['cep'].tolist()
 
 
 
@@ -144,14 +144,16 @@ def getUrlbyCEP(cep, search, i):
                     
                     sleep(2)
                     try:
-                        url_cleans = getLinks(driver,url_cleans)
-                        more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
-
-                        if more:
-                            more.click()
-                    
-                            sleep(2)
+                        for l in range(3):
                             url_cleans = getLinks(driver,url_cleans)
+                            more=driver.find_element_by_xpath('//*[@title="Próxima página"]')
+
+                            if more:
+                                more.click()
+                        
+                                sleep(2)
+                            else:
+                                break
                     except:
                         url_cleans = getLinks(driver,url_cleans)
 

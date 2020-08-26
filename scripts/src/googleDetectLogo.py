@@ -135,7 +135,7 @@ def getallImgUrlwithLogo():
     fpartial=partial(have_logo,keywordLogo='SulAmérica')
     dfImgUrls['logo']=dfImgUrls['imgSrc'].apply(fpartial)
     dfImgUrls=dfImgUrls[dfImgUrls['logo']==True]
-    dfImgUrls=dfImgUrls[['url','imgSrc']]
+    dfImgUrls=dfImgUrls[['url','cep','imgSrc']]
     print('urlsIMG com logo',dfImgUrls)
     dfImgUrls.to_csv('scripts/out/imgUrls.csv',sep=';',index=False)
     

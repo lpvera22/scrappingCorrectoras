@@ -82,7 +82,7 @@ def getAll(url, path):
         download(img, path)
 
 
-def seleniumGetImg(url, path,f):
+def seleniumGetImg(url,cep, path,f):
     print('inside....',url)
     options = Options()
     options.headless = True
@@ -101,7 +101,7 @@ def seleniumGetImg(url, path,f):
 
             if is_valid(src):
                 
-                f.write(url + ';' + src)
+                f.write(url + ';'+str(cep)+';' + src)
                 f.write('\n')
                 if not os.path.isdir('scripts/out/img/' + path):
                     
