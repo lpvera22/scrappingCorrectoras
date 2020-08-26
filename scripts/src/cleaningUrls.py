@@ -36,6 +36,6 @@ def cleaningUrls(n):
     urls['on'] = urls['url'].apply(isUp)
     final = urls[urls['on'] == True]
 
-    final['contador'] = date.today()
+    
     final[['url', 'cep']].to_csv('scripts/out/urlCleaned.csv', index=False)
     # logging.info('scripts/out/urlCleaned.csv file saved...')
