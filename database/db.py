@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient,DESCENDING, ASCENDING
 
 
 class MongoAPI:
@@ -11,6 +11,8 @@ class MongoAPI:
 
         cursor = self.client[database]
         self.collection = cursor[collection]
+        # if collection=='urls':
+        #     self.collection.create_index([("url", DESCENDING), ("cep", ASCENDING)], unique=True)
         self.data = data
 
     def read(self):

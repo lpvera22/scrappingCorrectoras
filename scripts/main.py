@@ -33,34 +33,35 @@ def convert(seconds):
 
 
 def main(search):
-    # getUrlCleansNoMult(search,2)
-    getUrlCleansMultiprocessing(search,2)
-    cleaningUrls(2)
-    dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')
+    # print('starting')
+    # # getUrlCleansNoMult(search,8)
+    # # getUrlCleansMultiprocessing(search,8)
+    # cleaningUrls(8)
+    # dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')    
     
-    f = open('scripts/out/imgUrls.csv', 'w')
-    f.write('url;cep;imgSrc')
-    f.write('\n')
-    urlsCeps=list(zip(dfCleaned.url, dfCleaned.cep))
-    for url,cep in urlsCeps :
+    # f = open('scripts/out/imgUrls.csv', 'w')
+    # f.write('url;cep;imgSrc')
+    # f.write('\n')
+    # urlsCeps=list(zip(dfCleaned.url, dfCleaned.cep))
+    # for url,cep in urlsCeps :
         
-        print(url,cep)
-        m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-        seleniumGetImg(url, cep,str(m.group(1)),f)
-    getallImgUrlwithLogo()
+    #     print(url,cep)
+    #     m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+    #     seleniumGetImg(url, cep,str(m.group(1)),f)
+    # getallImgUrlwithLogo()
     
     
     
-    getFontsByUrlImg()
+    # getFontsByUrlImg()
     
     
-    getColorsByImgUrl()
+    # getColorsByImgUrl()
     
-    addingFeaturesByImgUrl()
+    # addingFeaturesByImgUrl()
     
     # #to delete
     # # addingColorsAndFontInfo()
-    
+    print('*************DONE=====>TO DB====>********')
     getScrapingtoDb()
     
     
@@ -68,6 +69,6 @@ def main(search):
 
 if __name__ == '__main__':
     start_time = time.time()
-    keywords = ['SulAmerica']
+    keywords = ['SulAmerica','Sulamerica seguros','Sulamerica saude','']
     main(keywords)
     print('---%s seconds---' % (convert(time.time() - start_time)))

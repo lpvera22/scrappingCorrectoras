@@ -25,9 +25,10 @@ print(sys.path)
 filec = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
 filec = filec[filec.index >= 732714]
+# filec = filec.head()
 filecep = filec['cep'].tolist()
 
-
+# os.system('rm /root/projects/scrappingCorrectoras/scripts/out/*')
 
 threadLocal = threading.local()
 
@@ -71,7 +72,7 @@ def getLinks(driver,urls):
 
 # @profile
 def getUrlbyCEP(cep, search, i):
-    #print(cep)
+    print('CEP PROCESS----->',i)
     f = open('scripts/out/' + str(i) + '.csv', 'w')
     f.write('url,cep')
     f.write('\n')
@@ -90,18 +91,18 @@ def getUrlbyCEP(cep, search, i):
     
     for s in search:
         try:
-            # print(s)
+            print('SEARCH KEYWORD-------->',s)
             driver.get(
                 'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
             title = driver.title
-            print(title)
+            # print(title)
             for c in cep:
                 driver.get(
                 'https://www.bing.com/account/general?ru=https%3a%2f%2fwww.bing.com%2f%3fFORM%3dZ9FD1&FORM=O2HV65#location')
-                # title = driver.title
+                title = driver.title
                 # print(title)
                 sleep(2)
-                # print(c)
+                print('on CEP----->',c)
 
                 cepInput = driver.find_element_by_id('geoname')
                 # print(cepInput)
@@ -129,7 +130,7 @@ def getUrlbyCEP(cep, search, i):
 
 
                 except:
-                    print('continue to search...')
+                    print('CEP FOUND...')
                     searchInput = driver.find_element_by_id('sb_form_q')
                     searchInput.clear()
                     searchInput.send_keys(s)
@@ -176,7 +177,7 @@ def getUrlbyCEP(cep, search, i):
                             
                             if issave:
                                 
-                                print('SAVE-->',u,c)
+                                print('URL-->',u,c)
                                 f.write(str(u) + ',' + str(c))
                                 f.write('\n')
                     else:
