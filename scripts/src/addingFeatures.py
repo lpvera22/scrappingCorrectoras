@@ -1,6 +1,6 @@
 import pandas as pd
 import sys
-print(sys.path)
+# print(sys.path)
 #sys.path.append('/media/laura/dados/Projects/Work/searchKeyword')
 from src.sslInfo import checkSSL
 from bs4 import BeautifulSoup
@@ -12,7 +12,7 @@ import os
 from google.cloud import storage
 import re
 from datetime import datetime
-print(sys.path)
+# print(sys.path)
 PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
 # print(PATH_CREDENTIALS)
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = PATH_CREDENTIALS

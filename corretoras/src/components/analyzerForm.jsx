@@ -35,7 +35,7 @@ class AnalyzerForm extends Component {
             
         }
         // console.log('DATAAAAAA',data)
-        fetch('http://64.227.22.164:5000/api/images/?' + new URLSearchParams(data))        
+        fetch('http://161.35.224.138:5000/api/images/?' + new URLSearchParams(data))        
         .then(response => {
             if (response.status==404){
                 return {content:'Sem anotações'}
@@ -70,7 +70,7 @@ class AnalyzerForm extends Component {
             
         }
         console.log('DATA TO SAVE',data)
-        fetch('http://64.227.22.164:5000/api/anotacao/', {
+        fetch('http://161.35.224.138:5000/api/anotacao/', {
             method: 'post',
             body: JSON.stringify(data),
             headers: { 'Content-type': 'application/json' }
@@ -96,7 +96,7 @@ class AnalyzerForm extends Component {
             
         }
         // console.log('DATAAAAAA',data)
-        fetch('http://64.227.22.164:5000/api/anotacao/?' + new URLSearchParams(data))        
+        fetch('http://161.35.224.138:5000/api/anotacao/?' + new URLSearchParams(data))        
         .then(response => {
             if (response.status==404){
                 return {content:'Sem anotações'}

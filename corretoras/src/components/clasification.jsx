@@ -27,7 +27,7 @@ class ListComponent extends Component {
         
     }
     loadUrls(){
-        fetch('http://64.227.22.164:5000/api/urls')
+        fetch('http://161.35.224.138:5000/api/urls')
         .then((resp) => resp.json())
         // .then((data)=> console.log(data))
         .then((jsonStr)=>{
@@ -42,7 +42,7 @@ class ListComponent extends Component {
             'url':url,
             'state':state
         }
-        fetch('http://64.227.22.164:5000/api/urls', {
+        fetch('http://161.35.224.138:5000/api/urls', {
             method: 'put',
             body: JSON.stringify(data),
             headers: { 'Content-type': 'application/json' }

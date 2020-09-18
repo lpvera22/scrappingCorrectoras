@@ -4,7 +4,7 @@ from database.db import MongoAPI
 from flask_cors import CORS, cross_origin
 from datetime import datetime
 data = {
-    "database": "Corretoras",
+    "database": "DEVCorretoras",
     "collection": "",
 }
 app = Flask(__name__)

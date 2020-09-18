@@ -6,6 +6,6 @@ module.exports = {
       instances: 1,
       autorestart: false,
       watch: false, 
-      cron_restart:'0 */12 * * *'
+      // cron_restart:'0 */12 * * *'
     }]
    };
