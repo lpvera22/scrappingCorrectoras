@@ -95,10 +95,12 @@ def seleniumGetImg(url,cep, path,f):
         imgs = driver.find_elements_by_tag_name('img')
         for i in range(len(imgs)):
 
+
             src = imgs[i].get_attribute('src')
             alt = imgs[i].get_attribute('alt')
+        
             r = requests.get(src)
-
+            time.sleep(2)
             if is_valid(src):
                 
                 f.write(url + ';'+str(cep)+';' + src)
