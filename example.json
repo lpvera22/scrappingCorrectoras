@@ -1,0 +1,757 @@
+{
+    "volatile": False,
+    "event_type": "video_stream_push_success",
+    "event_kind": "submit",
+    "data": {
+        "video": {
+            "volatile": False,
+            "token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+            "key": None,
+            "state": 5,
+            "only_audio": False,
+            "title": None,
+            "description": None,
+            "max_duration": None,
+            "enforce_duration": False,
+            "video_source": None,
+            "duration": 2.88,
+            "tags": None,
+            "data": None,
+            "device_info": {
+                "api_version": "2",
+                "embed_code": "<div app="[object Object
+                ]"></div>",
+                "media_source": "record",
+                "capture_type": "webrtc",
+                "location": "http: //localhost:3000/",
+                "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36",
+                "flash": "Flash not installed but supported",
+                "device": "Desktop",
+                "os": "Unknown Operating System",
+                "browser": "Chrome",
+                "version": "85",
+                "revision": {
+                    "version": "1",
+                    "revision": "35",
+                    "latest": "true",
+                    "prerelease": "false"
+                }
+            },
+            "submission_date": 1601159288,
+            "expiration_days": None,
+            "resubmission_date": 1601159288,
+            "stream_submission_date": 1601159288,
+            "user_language": "en-US",
+            "delete_old_streams": False,
+            "auto_crop": False,
+            "auto_pad": False,
+            "hd": False,
+            "average_rating": None,
+            "submitted": False,
+            "approved": None,
+            "moderation_reason": "",
+            "meta_profile_id": None,
+            "effect_profile": None,
+            "default_image_selector": 0.1,
+            "transcript_language": "en-US",
+            "video_file_name": None,
+            "pending_stream_jobs": 0,
+            "recordings": {
+                "counter": 1,
+                "rerecorded": False,
+                "limit": None,
+                "sessions_dates": [
+                    1601159288
+                ],
+                "single_session": True
+            },
+            "type": "ApiVideo",
+            "created": 1601159274,
+            "owned": False,
+            "video_profile": None,
+            "meta_profile": None,
+            "state_string": "READY",
+            "streams": [
+                {
+                    "volatile": False,
+                    "token": "8050f681708e7c14f6c23019853b67de",
+                    "key": None,
+                    "creation_type": 4,
+                    "state": 5,
+                    "streamable": 1,
+                    "video_analysis": None,
+                    "audio_transcription": None,
+                    "audio_keywords": None,
+                    "push_services_success": {
+                        "be24345ed67f7694fb0a5183344209ba": {
+                            "success": True,
+                            "timestamp": 1601159308,
+                            "objects": {
+                                "video_data": {
+                                    "id": "1XnQTJtAYKwKuwM8UZXjX8DjvLBFPCesd"
+                                }
+                            },
+                            "type": "Google Drive"
+                        }
+                    },
+                    "default_stream_id": "5f6fc0786306f36d952959d7",
+                    "default_definitive": False,
+                    "effect_profile": "",
+                    "video_profile_transcoding": "",
+                    "video_type": "webm",
+                    "video_sub_type": "other",
+                    "image_size": 10102,
+                    "audio_size": 0,
+                    "video_size": 214969,
+                    "video_width": 640,
+                    "video_height": 480,
+                    "duration": None,
+                    "has_video": True,
+                    "has_image": True,
+                    "has_audio": False,
+                    "video_has_audio": True,
+                    "nsfw": {
+                        "nsfw_checked": False
+                    },
+                    "submission_date": 1601159288,
+                    "subtitles": None,
+                    "type": "ApiVideoStream",
+                    "created": 1601159274,
+                    "owned": True,
+                    "creation_type_string": "FILE_UPLOAD",
+                    "streamable_string": "NO",
+                    "state_string": "READY",
+                    "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                    "parent_stream": None
+                },
+                {
+                    "volatile": False,
+                    "token": "aaa0ec6d8c7c74450c2e40feda36e7ae",
+                    "key": None,
+                    "creation_type": 1,
+                    "state": 5,
+                    "streamable": 3,
+                    "video_analysis": None,
+                    "audio_transcription": None,
+                    "audio_keywords": None,
+                    "push_services_success": {
+                        "be24345ed67f7694fb0a5183344209ba": {
+                            "success": True,
+                            "timestamp": 1601159310,
+                            "objects": {
+                                "video_data": {
+                                    "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                                }
+                            },
+                            "type": "Google Drive"
+                        }
+                    },
+                    "default_stream_id": None,
+                    "default_definitive": True,
+                    "effect_profile": None,
+                    "video_profile_transcoding": None,
+                    "video_type": "mp4",
+                    "video_sub_type": "regular",
+                    "image_size": 10918,
+                    "audio_size": 0,
+                    "video_size": 202127,
+                    "video_width": 640,
+                    "video_height": 480,
+                    "duration": 2.88,
+                    "has_video": True,
+                    "has_image": True,
+                    "has_audio": False,
+                    "video_has_audio": True,
+                    "nsfw": {
+                        "nsfw_checked": False
+                    },
+                    "submission_date": None,
+                    "subtitles": None,
+                    "type": "ApiVideoStream",
+                    "created": 1601159288,
+                    "owned": True,
+                    "creation_type_string": "TRANSCODED",
+                    "streamable_string": "YES",
+                    "state_string": "READY",
+                    "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                    "parent_stream": "8050f681708e7c14f6c23019853b67de"
+                }
+            ],
+            "original_stream": {
+                "volatile": False,
+                "token": "8050f681708e7c14f6c23019853b67de",
+                "key": None,
+                "creation_type": 4,
+                "state": 5,
+                "streamable": 1,
+                "video_analysis": None,
+                "audio_transcription": None,
+                "audio_keywords": None,
+                "push_services_success": {
+                    "be24345ed67f7694fb0a5183344209ba": {
+                        "success": True,
+                        "timestamp": 1601159308,
+                        "objects": {
+                            "video_data": {
+                                "id": "1XnQTJtAYKwKuwM8UZXjX8DjvLBFPCesd"
+                            }
+                        },
+                        "type": "Google Drive"
+                    }
+                },
+                "default_stream_id": "5f6fc0786306f36d952959d7",
+                "default_definitive": False,
+                "effect_profile": "",
+                "video_profile_transcoding": "",
+                "video_type": "webm",
+                "video_sub_type": "other",
+                "image_size": 10102,
+                "audio_size": 0,
+                "video_size": 214969,
+                "video_width": 640,
+                "video_height": 480,
+                "duration": None,
+                "has_video": True,
+                "has_image": True,
+                "has_audio": False,
+                "video_has_audio": True,
+                "nsfw": {
+                    "nsfw_checked": False
+                },
+                "submission_date": 1601159288,
+                "subtitles": None,
+                "type": "ApiVideoStream",
+                "created": 1601159274,
+                "owned": True,
+                "creation_type_string": "FILE_UPLOAD",
+                "streamable_string": "NO",
+                "state_string": "READY",
+                "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                "parent_stream": None
+            },
+            "default_stream": {
+                "volatile": False,
+                "token": "aaa0ec6d8c7c74450c2e40feda36e7ae",
+                "key": None,
+                "creation_type": 1,
+                "state": 5,
+                "streamable": 3,
+                "video_analysis": None,
+                "audio_transcription": None,
+                "audio_keywords": None,
+                "push_services_success": {
+                    "be24345ed67f7694fb0a5183344209ba": {
+                        "success": True,
+                        "timestamp": 1601159310,
+                        "objects": {
+                            "video_data": {
+                                "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                            }
+                        },
+                        "type": "Google Drive"
+                    }
+                },
+                "default_stream_id": None,
+                "default_definitive": True,
+                "effect_profile": None,
+                "video_profile_transcoding": None,
+                "video_type": "mp4",
+                "video_sub_type": "regular",
+                "image_size": 10918,
+                "audio_size": 0,
+                "video_size": 202127,
+                "video_width": 640,
+                "video_height": 480,
+                "duration": 2.88,
+                "has_video": True,
+                "has_image": True,
+                "has_audio": False,
+                "video_has_audio": True,
+                "nsfw": {
+                    "nsfw_checked": False
+                },
+                "submission_date": None,
+                "subtitles": None,
+                "type": "ApiVideoStream",
+                "created": 1601159288,
+                "owned": True,
+                "creation_type_string": "TRANSCODED",
+                "streamable_string": "YES",
+                "state_string": "READY",
+                "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                "parent_stream": "8050f681708e7c14f6c23019853b67de"
+            },
+            "embed_image_url": "embed.ziggeo.com/v1/applications/792633048549165c690f3d220b58c0f4/videos/5b5d0ad3241c5e52bb320da9b4bce6d4/image",
+            "embed_video_url": "embed.ziggeo.com/v1/applications/792633048549165c690f3d220b58c0f4/videos/5b5d0ad3241c5e52bb320da9b4bce6d4/video"
+        },
+        "push_stream_data": {
+            "success": True,
+            "timestamp": 1601159310,
+            "objects": {
+                "video_data": {
+                    "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                }
+            },
+            "type": "Google Drive",
+            "token": "be24345ed67f7694fb0a5183344209ba"
+        },
+        "stream": {
+            "volatile": False,
+            "token": "aaa0ec6d8c7c74450c2e40feda36e7ae",
+            "key": None,
+            "creation_type": 1,
+            "state": 5,
+            "streamable": 3,
+            "video_analysis": None,
+            "audio_transcription": None,
+            "audio_keywords": None,
+            "push_services_success": {
+                "be24345ed67f7694fb0a5183344209ba": {
+                    "success": True,
+                    "timestamp": 1601159310,
+                    "objects": {
+                        "video_data": {
+                            "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                        }
+                    },
+                    "type": "Google Drive"
+                }
+            },
+            "default_stream_id": None,
+            "default_definitive": True,
+            "effect_profile": None,
+            "video_profile_transcoding": None,
+            "video_type": "mp4",
+            "video_sub_type": "regular",
+            "image_size": 10918,
+            "audio_size": 0,
+            "video_size": 202127,
+            "video_width": 640,
+            "video_height": 480,
+            "duration": 2.88,
+            "has_video": True,
+            "has_image": True,
+            "has_audio": False,
+            "video_has_audio": True,
+            "nsfw": {
+                "nsfw_checked": False
+            },
+            "submission_date": None,
+            "subtitles": None,
+            "type": "ApiVideoStream",
+            "created": 1601159288,
+            "owned": True,
+            "creation_type_string": "TRANSCODED",
+            "streamable_string": "YES",
+            "state_string": "READY",
+            "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+            "parent_stream": "8050f681708e7c14f6c23019853b67de"
+        },
+        "push": {
+            "volatile": False,
+            "token": "be24345ed67f7694fb0a5183344209ba",
+            "key": None,
+            "title": "winnerSave",
+            "push_original": False,
+            "push_default": True,
+            "push_all": True,
+            "push_images": False,
+            "push_videos": True,
+            "auto_push": True,
+            "auto_push_approved": False,
+            "only_effects": False,
+            "push_effects": [],
+            "push_video_profiles": [],
+            "naming": "{video_token}-{stream_token}-{video_key}-{video_tags}.{file_extension}",
+            "path": "",
+            "health": True,
+            "integration_token": "07335609f4fecba6354cd94673681094",
+            "drive_folder_id": None,
+            "type": "ApiGoogleDrivePush",
+            "created": 1601157438,
+            "owned": False
+        }
+    },
+    "webhook": True,
+    "type": "ApiEvent",
+    "created": 1601159310,
+    "owned": True
+}{
+    "volatile": False,
+    "event_type": "video_stream_push_success",
+    "event_kind": "submit",
+    "data": {
+        "video": {
+            "volatile": False,
+            "token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+            "key": None,
+            "state": 5,
+            "only_audio": False,
+            "title": None,
+            "description": None,
+            "max_duration": None,
+            "enforce_duration": False,
+            "video_source": None,
+            "duration": 2.88,
+            "tags": None,
+            "data": None,
+            "device_info": {
+                "api_version": "2",
+                "embed_code": "<div app="[object Object
+                ]"></div>",
+                "media_source": "record",
+                "capture_type": "webrtc",
+                "location": "http://localhost:3000/",
+                "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36",
+                "flash": "Flash not installed but supported",
+                "device": "Desktop",
+                "os": "Unknown Operating System",
+                "browser": "Chrome",
+                "version": "85",
+                "revision": {
+                    "version": "1",
+                    "revision": "35",
+                    "latest": "true",
+                    "prerelease": "false"
+                }
+            },
+            "submission_date": 1601159288,
+            "expiration_days": None,
+            "resubmission_date": 1601159288,
+            "stream_submission_date": 1601159288,
+            "user_language": "en-US",
+            "delete_old_streams": False,
+            "auto_crop": False,
+            "auto_pad": False,
+            "hd": False,
+            "average_rating": None,
+            "submitted": False,
+            "approved": None,
+            "moderation_reason": "",
+            "meta_profile_id": None,
+            "effect_profile": None,
+            "default_image_selector": 0.1,
+            "transcript_language": "en-US",
+            "video_file_name": None,
+            "pending_stream_jobs": 0,
+            "recordings": {
+                "counter": 1,
+                "rerecorded": False,
+                "limit": None,
+                "sessions_dates": [
+                    1601159288
+                ],
+                "single_session": True
+            },
+            "type": "ApiVideo",
+            "created": 1601159274,
+            "owned": False,
+            "video_profile": None,
+            "meta_profile": None,
+            "state_string": "READY",
+            "streams": [
+                {
+                    "volatile": False,
+                    "token": "8050f681708e7c14f6c23019853b67de",
+                    "key": None,
+                    "creation_type": 4,
+                    "state": 5,
+                    "streamable": 1,
+                    "video_analysis": None,
+                    "audio_transcription": None,
+                    "audio_keywords": None,
+                    "push_services_success": {
+                        "be24345ed67f7694fb0a5183344209ba": {
+                            "success": True,
+                            "timestamp": 1601159308,
+                            "objects": {
+                                "video_data": {
+                                    "id": "1XnQTJtAYKwKuwM8UZXjX8DjvLBFPCesd"
+                                }
+                            },
+                            "type": "Google Drive"
+                        }
+                    },
+                    "default_stream_id": "5f6fc0786306f36d952959d7",
+                    "default_definitive": False,
+                    "effect_profile": "",
+                    "video_profile_transcoding": "",
+                    "video_type": "webm",
+                    "video_sub_type": "other",
+                    "image_size": 10102,
+                    "audio_size": 0,
+                    "video_size": 214969,
+                    "video_width": 640,
+                    "video_height": 480,
+                    "duration": None,
+                    "has_video": True,
+                    "has_image": True,
+                    "has_audio": False,
+                    "video_has_audio": True,
+                    "nsfw": {
+                        "nsfw_checked": False
+                    },
+                    "submission_date": 1601159288,
+                    "subtitles": None,
+                    "type": "ApiVideoStream",
+                    "created": 1601159274,
+                    "owned": True,
+                    "creation_type_string": "FILE_UPLOAD",
+                    "streamable_string": "NO",
+                    "state_string": "READY",
+                    "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                    "parent_stream": None
+                },
+                {
+                    "volatile": False,
+                    "token": "aaa0ec6d8c7c74450c2e40feda36e7ae",
+                    "key": None,
+                    "creation_type": 1,
+                    "state": 5,
+                    "streamable": 3,
+                    "video_analysis": None,
+                    "audio_transcription": None,
+                    "audio_keywords": None,
+                    "push_services_success": {
+                        "be24345ed67f7694fb0a5183344209ba": {
+                            "success": True,
+                            "timestamp": 1601159310,
+                            "objects": {
+                                "video_data": {
+                                    "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                                }
+                            },
+                            "type": "Google Drive"
+                        }
+                    },
+                    "default_stream_id": None,
+                    "default_definitive": True,
+                    "effect_profile": None,
+                    "video_profile_transcoding": None,
+                    "video_type": "mp4",
+                    "video_sub_type": "regular",
+                    "image_size": 10918,
+                    "audio_size": 0,
+                    "video_size": 202127,
+                    "video_width": 640,
+                    "video_height": 480,
+                    "duration": 2.88,
+                    "has_video": True,
+                    "has_image": True,
+                    "has_audio": False,
+                    "video_has_audio": True,
+                    "nsfw": {
+                        "nsfw_checked": False
+                    },
+                    "submission_date": None,
+                    "subtitles": None,
+                    "type": "ApiVideoStream",
+                    "created": 1601159288,
+                    "owned": True,
+                    "creation_type_string": "TRANSCODED",
+                    "streamable_string": "YES",
+                    "state_string": "READY",
+                    "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                    "parent_stream": "8050f681708e7c14f6c23019853b67de"
+                }
+            ],
+            "original_stream": {
+                "volatile": False,
+                "token": "8050f681708e7c14f6c23019853b67de",
+                "key": None,
+                "creation_type": 4,
+                "state": 5,
+                "streamable": 1,
+                "video_analysis": None,
+                "audio_transcription": None,
+                "audio_keywords": None,
+                "push_services_success": {
+                    "be24345ed67f7694fb0a5183344209ba": {
+                        "success": True,
+                        "timestamp": 1601159308,
+                        "objects": {
+                            "video_data": {
+                                "id": "1XnQTJtAYKwKuwM8UZXjX8DjvLBFPCesd"
+                            }
+                        },
+                        "type": "Google Drive"
+                    }
+                },
+                "default_stream_id": "5f6fc0786306f36d952959d7",
+                "default_definitive": False,
+                "effect_profile": "",
+                "video_profile_transcoding": "",
+                "video_type": "webm",
+                "video_sub_type": "other",
+                "image_size": 10102,
+                "audio_size": 0,
+                "video_size": 214969,
+                "video_width": 640,
+                "video_height": 480,
+                "duration": None,
+                "has_video": True,
+                "has_image": True,
+                "has_audio": False,
+                "video_has_audio": True,
+                "nsfw": {
+                    "nsfw_checked": False
+                },
+                "submission_date": 1601159288,
+                "subtitles": None,
+                "type": "ApiVideoStream",
+                "created": 1601159274,
+                "owned": True,
+                "creation_type_string": "FILE_UPLOAD",
+                "streamable_string": "NO",
+                "state_string": "READY",
+                "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                "parent_stream": None
+            },
+            "default_stream": {
+                "volatile": False,
+                "token": "aaa0ec6d8c7c74450c2e40feda36e7ae",
+                "key": None,
+                "creation_type": 1,
+                "state": 5,
+                "streamable": 3,
+                "video_analysis": None,
+                "audio_transcription": None,
+                "audio_keywords": None,
+                "push_services_success": {
+                    "be24345ed67f7694fb0a5183344209ba": {
+                        "success": True,
+                        "timestamp": 1601159310,
+                        "objects": {
+                            "video_data": {
+                                "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                            }
+                        },
+                        "type": "Google Drive"
+                    }
+                },
+                "default_stream_id": None,
+                "default_definitive": True,
+                "effect_profile": None,
+                "video_profile_transcoding": None,
+                "video_type": "mp4",
+                "video_sub_type": "regular",
+                "image_size": 10918,
+                "audio_size": 0,
+                "video_size": 202127,
+                "video_width": 640,
+                "video_height": 480,
+                "duration": 2.88,
+                "has_video": True,
+                "has_image": True,
+                "has_audio": False,
+                "video_has_audio": True,
+                "nsfw": {
+                    "nsfw_checked": False
+                },
+                "submission_date": None,
+                "subtitles": None,
+                "type": "ApiVideoStream",
+                "created": 1601159288,
+                "owned": True,
+                "creation_type_string": "TRANSCODED",
+                "streamable_string": "YES",
+                "state_string": "READY",
+                "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+                "parent_stream": "8050f681708e7c14f6c23019853b67de"
+            },
+            "embed_image_url": "embed.ziggeo.com/v1/applications/792633048549165c690f3d220b58c0f4/videos/5b5d0ad3241c5e52bb320da9b4bce6d4/image",
+            "embed_video_url": "embed.ziggeo.com/v1/applications/792633048549165c690f3d220b58c0f4/videos/5b5d0ad3241c5e52bb320da9b4bce6d4/video"
+        },
+        "push_stream_data": {
+            "success": True,
+            "timestamp": 1601159310,
+            "objects": {
+                "video_data": {
+                    "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                }
+            },
+            "type": "Google Drive",
+            "token": "be24345ed67f7694fb0a5183344209ba"
+        },
+        "stream": {
+            "volatile": False,
+            "token": "aaa0ec6d8c7c74450c2e40feda36e7ae",
+            "key": None,
+            "creation_type": 1,
+            "state": 5,
+            "streamable": 3,
+            "video_analysis": None,
+            "audio_transcription": None,
+            "audio_keywords": None,
+            "push_services_success": {
+                "be24345ed67f7694fb0a5183344209ba": {
+                    "success": True,
+                    "timestamp": 1601159310,
+                    "objects": {
+                        "video_data": {
+                            "id": "1AESn0EHbpCM_OMzsv86h7DIdYMoJRGgR"
+                        }
+                    },
+                    "type": "Google Drive"
+                }
+            },
+            "default_stream_id": None,
+            "default_definitive": True,
+            "effect_profile": None,
+            "video_profile_transcoding": None,
+            "video_type": "mp4",
+            "video_sub_type": "regular",
+            "image_size": 10918,
+            "audio_size": 0,
+            "video_size": 202127,
+            "video_width": 640,
+            "video_height": 480,
+            "duration": 2.88,
+            "has_video": True,
+            "has_image": True,
+            "has_audio": False,
+            "video_has_audio": True,
+            "nsfw": {
+                "nsfw_checked": False
+            },
+            "submission_date": None,
+            "subtitles": None,
+            "type": "ApiVideoStream",
+            "created": 1601159288,
+            "owned": True,
+            "creation_type_string": "TRANSCODED",
+            "streamable_string": "YES",
+            "state_string": "READY",
+            "video_token": "5b5d0ad3241c5e52bb320da9b4bce6d4",
+            "parent_stream": "8050f681708e7c14f6c23019853b67de"
+        },
+        "push": {
+            "volatile": False,
+            "token": "be24345ed67f7694fb0a5183344209ba",
+            "key": None,
+            "title": "winnerSave",
+            "push_original": False,
+            "push_default": True,
+            "push_all": True,
+            "push_images": False,
+            "push_videos": True,
+            "auto_push": True,
+            "auto_push_approved": False,
+            "only_effects": False,
+            "push_effects": [],
+            "push_video_profiles": [],
+            "naming": "{video_token}-{stream_token}-{video_key}-{video_tags}.{file_extension}",
+            "path": "",
+            "health": True,
+            "integration_token": "07335609f4fecba6354cd94673681094",
+            "drive_folder_id": None,
+            "type": "ApiGoogleDrivePush",
+            "created": 1601157438,
+            "owned": False
+        }
+    },
+    "webhook": True,
+    "type": "ApiEvent",
+    "created": 1601159310,
+    "owned": True
+}

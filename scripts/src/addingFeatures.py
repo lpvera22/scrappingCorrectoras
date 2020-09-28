@@ -77,32 +77,29 @@ def addMeta(df):
 
 def addingFeaturesByImgUrl():
     df = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
-    dfCleaned=pd.read_csv('scripts/out/urlCleaned.csv')
-    dfurlsToDB=df[['url','cep']]
-    dfurlsToDB.drop_duplicates(inplace=True)
-    print(dfurlsToDB)
-    
-    dfurlsToDB['domain'] = dfurlsToDB['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
-    
+    df['SSL'] = df['url'].apply(checkSSL)
+    df=df[df['SSL']==True]
+    df['title'] = df['url'].apply(getTitle)
+    df['keywords'] = df['url'].apply(getKeywords)
 
-    dfurlsToDB['SSL'] = dfurlsToDB['url'].apply(checkSSL)
+    dfCleaned=pd.read_csv('scripts/out/urlCleaned.csv')
+    # cepdfCleaned=dfCleaned[dfCleaned['url'].isin(list(df.url))]
+    dfConcat=pd.merge(df,dfCleaned,on=['url'])
+    # print (dfConcat)
+    dfurlsToDB=dfConcat[['url','cep']]
+    dfurlsToDB.drop_duplicates(inplace=True)
     
     
     
-    dfurlsToDB=dfurlsToDB[dfurlsToDB['SSL']==True]
+       
+    # dfurlsToDB = checkAll(dfurlsToDB)
     
     
-    dfurlsToDB['title'] = dfurlsToDB['url'].apply(getTitle)
-    
-    dfurlsToDB['keywords'] = dfurlsToDB['url'].apply(getKeywords)
-    
-    dfurlsToDB = checkAll(dfurlsToDB)
-    
-    
-    dfurlsToDB=dfurlsToDB[dfurlsToDB['malicious']==False]
+    # dfurlsToDB=dfurlsToDB[dfurlsToDB['malicious']==False]
     
     dfurlsToDB['date']=datetime.now()
-    print(dfurlsToDB)
+    dfurlsToDB=pd.merge(dfurlsToDB,df,on=['url'])
+    dfurlsToDB['domain'] = dfurlsToDB['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
     dfurlsToDB=dfurlsToDB[['url','cep','title','keywords','date','domain']]
     
     dfurlsToDB.to_csv('scripts/out/urlsToDB.csv', index=False)

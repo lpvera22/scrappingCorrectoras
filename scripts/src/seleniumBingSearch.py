@@ -24,7 +24,7 @@ from pyvirtualdisplay import Display
 # print(sys.path)
 filec = pd.read_csv('scripts/data/CEP-dados-2018-UTF8/ceps.csv')
 urlsNot=pd.read_csv('scripts/data/excludeUrls.csv')
-filec = filec[filec.index >= 73/2714]
+# filec = filec[filec.index >= 73/2714]
 # filec = filec.head()
 filecep = filec['cep'].tolist()
 # filecep=[28950000]

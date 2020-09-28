@@ -106,10 +106,10 @@ def getLatestAnotacao():
 @cross_origin()
 def getImg():
     
-    data['collection'] = 'images'
+    data['collection'] = 'imgs'
     domain=request.args.get('domain')
     
-    # print({'domain':domain,'resource':resource})
+    print({'domain':domain})
     mongo_obj = MongoAPI(data)
     response = mongo_obj.readQuery({'domain':domain})
     
@@ -120,6 +120,12 @@ def getImg():
         return jsonify(response)
     else:
         return abort(404)
+@app.route('/api/test/', methods=["GET","POST"])
+@cross_origin()
+def test():
+    print(request.get_json()['data']['video']['title'])
+    return {}
 
-# if __name__ == '__main__':
-#     app.run(host='0.0.0.0')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',debug=True)

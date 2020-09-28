@@ -130,14 +130,14 @@ def have_logo(uri,keywordLogo):
 
     
 def getallImgUrlwithLogo():
-    dfImgUrls=pd.read_csv('scripts/out/imgUrls.csv',sep=';')
+    dfImgUrls=pd.read_csv('scripts/out/imgUrlsWithSet.csv',sep=';')
     print(dfImgUrls)
     fpartial=partial(have_logo,keywordLogo='SulAmérica')
     dfImgUrls['logo']=dfImgUrls['imgSrc'].apply(fpartial)
     dfImgUrls=dfImgUrls[dfImgUrls['logo']==True]
-    dfImgUrls=dfImgUrls[['url','cep','imgSrc']]
+    dfImgUrls=dfImgUrls[['url','imgSrc']]
     print('urlsIMG com logo',dfImgUrls)
-    dfImgUrls.to_csv('scripts/out/imgUrls.csv',sep=';',index=False)
+    dfImgUrls.to_csv('scripts/out/imgUrlsWithSet.csv',sep=';',index=False)
     
     
 def findLogoOnUrl():

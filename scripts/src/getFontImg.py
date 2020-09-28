@@ -114,7 +114,7 @@ def downloadJsonfile():
     fileName=blob.name.split('/')[-1]
     blob.download_to_filename(fileName)
 def getFontsByUrlImg():
-    df = pd.read_csv('scripts/out/imgUrls.csv',sep=';')
+    df = pd.read_csv('scripts/out/imgUrlsWithSet.csv',sep=';')
     print(df)
     df=df.dropna()
     df['domain'] = df['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))

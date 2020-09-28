@@ -82,7 +82,7 @@ def getAll(url, path):
         download(img, path)
 
 
-def seleniumGetImg(url,cep, path,f):
+def seleniumGetImg(url, path,f):
     print('inside....',url)
     options = Options()
     options.headless = True
@@ -98,12 +98,15 @@ def seleniumGetImg(url,cep, path,f):
 
             src = imgs[i].get_attribute('src')
             alt = imgs[i].get_attribute('alt')
-        
-            r = requests.get(src)
-            time.sleep(2)
+            try:
+                r = requests.get(src)
+            except ValueError:
+                print('it is going to wait 30 min now.....GO TO GET A COFFEE!')
+                time.sleep(30)
+                r = requests.get(src)
             if is_valid(src):
                 
-                f.write(url + ';'+str(cep)+';' + src)
+                f.write(url + ';' + src)
                 f.write('\n')
                 if not os.path.isdir('scripts/out/img/' + path):
                     
@@ -120,7 +123,7 @@ def seleniumGetImg(url,cep, path,f):
 
 
     except ValueError:
-        print(url)
+        print('error on url---->',url)
 
     driver.close()
 
