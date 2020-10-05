@@ -17,6 +17,7 @@ import os, shutil
 import pandas as pd
 import time
 import re
+
 # /home/lvera/projects/scrappingCorrectoras/scripts/credentials.json
 
 os.environ['KEY'] = 'AIzaSyAMgJ9UV5-81zIDTy0kMXYK2ILsfFYWh20'
@@ -33,8 +34,7 @@ def convert(seconds):
 
 
 def main(search):
-    #Done correctly!!
-    # getUrlCleansNoMult(search,0)
+    
     getUrlCleansMultiprocessing(search,5)
     print('cleaning urls...')
     cleaningUrls(5)
@@ -84,7 +84,7 @@ def main(search):
 
 if __name__ == '__main__':
     start_time = time.time()
-    keywords = ['SulAmerica','Sulamerica seguros','Sulamerica saude','plano de saude sulamerica']
-    # keywords = ['sulamerica']
+    keywords = ['SulAmerica','Sulamerica seguros','Sulamerica saude','plano de saude sulamerica', 'planos sulamerica']
+    
     main(keywords)
     print('---%s seconds---' % (convert(time.time() - start_time)))

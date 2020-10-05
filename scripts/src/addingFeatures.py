@@ -78,7 +78,7 @@ def addMeta(df):
 def addingFeaturesByImgUrl():
     df = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
     df['SSL'] = df['url'].apply(checkSSL)
-    df=df[df['SSL']==True]
+    # df=df[df['SSL']==True]
     df['title'] = df['url'].apply(getTitle)
     df['keywords'] = df['url'].apply(getKeywords)
 
