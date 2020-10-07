@@ -60,6 +60,10 @@ def main(search):
     getColorsByImgUrl()
     
     addingFeaturesByImgUrl()
+
+    
+
+
     
     print('*************DONE=====>TO DB====>********')
     getScrapingtoDb()

@@ -12,6 +12,8 @@ import os
 from google.cloud import storage
 import re
 from datetime import datetime
+from src.image.API.visualSimilarity import trainData,search
+
 # print(sys.path)
 PATH_CREDENTIALS=os.path.abspath('scripts/credentials.json')
 # print(PATH_CREDENTIALS)
@@ -78,14 +80,14 @@ def addMeta(df):
 def addingFeaturesByImgUrl():
     df = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
     df['SSL'] = df['url'].apply(checkSSL)
-    # df=df[df['SSL']==True]
+    
     df['title'] = df['url'].apply(getTitle)
     df['keywords'] = df['url'].apply(getKeywords)
 
     dfCleaned=pd.read_csv('scripts/out/urlCleaned.csv')
-    # cepdfCleaned=dfCleaned[dfCleaned['url'].isin(list(df.url))]
+    
     dfConcat=pd.merge(df,dfCleaned,on=['url'])
-    # print (dfConcat)
+    
     dfurlsToDB=dfConcat[['url','cep']]
     dfurlsToDB.drop_duplicates(inplace=True)
     
@@ -100,10 +102,22 @@ def addingFeaturesByImgUrl():
     dfurlsToDB['date']=datetime.now()
     dfurlsToDB=pd.merge(dfurlsToDB,df,on=['url'])
     dfurlsToDB['domain'] = dfurlsToDB['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
-    dfurlsToDB=dfurlsToDB[['url','cep','title','keywords','date','domain']]
+    dfurlsToDB=dfurlsToDB[['url','cep','title','keywords','date','domain','score']]
+    dfurlsToDB.drop_duplicates(subset=['url','cep'],inplace=True)
+    print(dfurlsToDB)
+    imgUrls = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
+    try:
+        trainData(imgUrls)
+    
+        scoresimg=search(imgUrls)
+    except:
+        scoresimg=search(imgUrls)
+
     
     dfurlsToDB.to_csv('scripts/out/urlsToDB.csv', index=False)
-    df.to_csv('scripts/out/imgstoDB.csv', index=False)
+    scoresimg=scoresimg[scoresimg['imgSrc'].isin(df['imgSrc'].to_list())]
+    
+    scoresimg.to_csv('scripts/out/imgstoDB.csv', index=False)
 def addingFeatures():
     # df = pd.read_csv('scripts/out/urlCleaned.csv')
     df = pd.read_csv('scripts/out/urlLogosCrop.csv')
