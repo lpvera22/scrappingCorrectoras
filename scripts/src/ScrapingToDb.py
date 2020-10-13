@@ -15,20 +15,67 @@ data = {
 def registerUrls():
     data["collection"] = 'urls'
     dfURLS= pd.read_csv('scripts/out/urlsToDB.csv')
-    dfURLS['state']='todo'
+    data_dict = dfURLS.to_dict('records')
+    to_register=dict(zip(dfURLS['url'].unique(), [[] for i in dfURLS['url'].unique()]))
     
-    dfURLS.reset_index(inplace=True)
+    for u in data_dict:
+        url=u['url']
+        c=u['cep']
+        listceps=to_register[url]
+        if c not in listceps:
+            listceps.append(c)
+            to_register[url]=listceps
+
+     
+    
     
     dfURLS=dfURLS.fillna(-1)
-    print(dfURLS)
-    data_dict = dfURLS.to_dict('records')
-    mongo_obj = MongoAPI(data)
+    
+    mydb = MongoAPI(data)
+    output=mydb.read()
+    
+    
+    
+    #checking the urls already in the db
+    dbUrls={}
+    for i in output:
+        dbUrls[i['url']]=i['ceps']
+    
+    
+    for key in to_register:
+        if key not in dbUrls:
+            data['Document']={
+                'url':key,
+                'ceps':to_register[key],
+                'state':'todo', 
+                'domain':key[key[8:].find('/') + 8:].replace('/', '')
+
+            }
+            mydb.write(data)
+        else:
+            for i in to_register[key]:
+                if i not in dbUrls[key]:
+                    dbUrls[key].append(i)
+            data['Filter']={'url':key}
+            data['ceps']={'ceps':dbUrls[key]}
+            data['state']='todo'
+
+            response = mydb.updateUrl()
+            
+
+
+    
+
+    
+
+
     # mongo_obj.collection.create_index([("url", DESCENDING), ("cep", ASCENDING)], unique=True)
-    try:
-        mongo_obj.writeMany(data_dict)
-    except:
-        print('Already all inserted....in DB')
-        pass
+    # try:
+        
+    #     mongo_obj.writeMany(data_dict)
+    # except:
+    #     print('Already all inserted....in DB')
+    #     pass
     
 def registerImages():
     data["collection"] = 'imgs'
@@ -47,4 +94,4 @@ def registerImages():
 def getScrapingtoDb():
     print('TO DB....')
     registerUrls()
-    registerImages()
+    # registerImages()

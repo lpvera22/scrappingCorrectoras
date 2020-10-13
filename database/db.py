@@ -56,6 +56,13 @@ class MongoAPI:
         response = self.collection.update_one(filt, updated_data)
         output = {'Status': 'Successfully Updated' if response.modified_count > 0 else "Nothing was updated."}
         return output
+    def updateUrl(self):
+        filt = self.data['Filter']
+        updated_data = {"$set": self.data['ceps'],"$set": self.data['state']}
+        
+        response = self.collection.update_one(filt, updated_data)
+        output = {'Status': 'Successfully Updated' if response.modified_count > 0 else "Nothing was updated."}
+        return output
 
     def delete(self, data):
         filt = data['Document']

@@ -102,7 +102,7 @@ def addingFeaturesByImgUrl():
     dfurlsToDB['date']=datetime.now()
     dfurlsToDB=pd.merge(dfurlsToDB,df,on=['url'])
     dfurlsToDB['domain'] = dfurlsToDB['url'].apply(lambda x: x[x[8:].find('/') + 8:].replace('/', ''))
-    dfurlsToDB=dfurlsToDB[['url','cep','title','keywords','date','domain','score']]
+    dfurlsToDB=dfurlsToDB[['url','cep','title','keywords','date','domain']]
     dfurlsToDB.drop_duplicates(subset=['url','cep'],inplace=True)
     print(dfurlsToDB)
     imgUrls = pd.read_csv('scripts/out/urlsFontColorImg.csv',sep=';')
