@@ -26,10 +26,12 @@ def search(imgUrls):
 
     f={}
     for u in imgUrls['imgSrc'].to_list():
-        if not L:
+        print(u)
+        if u not in L.keys():
             f[u] = -1
 
         else:
+            print(L[u])
             f[u] = L[u]
 
 

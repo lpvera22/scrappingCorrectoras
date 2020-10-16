@@ -69,13 +69,7 @@ def registerUrls():
     
 
 
-    # mongo_obj.collection.create_index([("url", DESCENDING), ("cep", ASCENDING)], unique=True)
-    # try:
-        
-    #     mongo_obj.writeMany(data_dict)
-    # except:
-    #     print('Already all inserted....in DB')
-    #     pass
+    
     
 def registerImages():
     data["collection"] = 'imgs'
@@ -93,5 +87,5 @@ def registerImages():
     
 def getScrapingtoDb():
     print('TO DB....')
-    registerUrls()
-    # registerImages()
+    # registerUrls()
+    registerImages()
