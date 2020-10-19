@@ -109,7 +109,7 @@ def getImg():
     data['collection'] = 'imgs'
     domain=request.args.get('domain')
     
-    print({'domain':domain})
+    # print({'domain':domain})
     mongo_obj = MongoAPI(data)
     response = mongo_obj.readQuery({'domain':domain})
     

@@ -4,6 +4,7 @@ from pymongo import MongoClient,DESCENDING, ASCENDING
 sys.path.append('database/')
 from db import MongoAPI
 import pandas as pd
+from urllib.parse import urlparse
 
 
 data = {
@@ -74,6 +75,7 @@ def registerUrls():
 def registerImages():
     data["collection"] = 'imgs'
     dfIMGS= pd.read_csv('scripts/out/imgstoDB.csv')
+    dfIMGS['domain'] = dfIMGS['imgSrc'].apply(lambda x: urlparse(x).netloc)
     dfIMGS.reset_index(inplace=True)
     
     dfIMGS=dfIMGS.fillna(-1)

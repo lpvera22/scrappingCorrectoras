@@ -34,7 +34,7 @@ class AnalyzerForm extends Component {
             
             
         }
-        // console.log('DATAAAAAA',data)
+        console.log('DATAAAAAA',data)
         fetch('http://161.35.224.138:5000/api/images/?' + new URLSearchParams(data))        
         .then(response => {
             if (response.status==404){
