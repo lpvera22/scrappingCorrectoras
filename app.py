@@ -3,11 +3,17 @@ import pandas as pd
 from database.db import MongoAPI
 from flask_cors import CORS, cross_origin
 from datetime import datetime
+from flask_selfdoc  import Autodoc
+
+import time
+
 data = {
     "database": "DEVCorretoras",
     "collection": "",
 }
 app = Flask(__name__)
+auto = Autodoc(app)
+
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -17,6 +23,7 @@ def hello():
 
 
 @app.route('/api/urls', methods=['GET'])
+@auto.doc()
 @cross_origin()
 def getURls():
     data['collection'] = 'urls'
@@ -31,6 +38,7 @@ def getURls():
     #                 mimetype='application/json')
 
 @app.route('/api/urls', methods=["DELETE"])
+@auto.doc()
 @cross_origin()
 def deleteallURls():
     data['collection'] = 'urls'
@@ -41,6 +49,7 @@ def deleteallURls():
     return jsonify(response)
     
 @app.route('/api/urls/', methods=["PUT"])
+@auto.doc()
 @cross_origin()
 def updatelURl():
     r=request.get_json()
@@ -54,6 +63,7 @@ def updatelURl():
     return jsonify(response)
 
 @app.route('/api/url/', methods=["GET"])
+@auto.doc()
 @cross_origin()
 def getParamsURl():
     
@@ -65,26 +75,8 @@ def getParamsURl():
     response = mongo_obj.readFromUrl()
     print(response)
     return jsonify(response)
-
-@app.route('/api/anotacao/', methods=["POST"])
-@cross_origin()
-def postAnotacao():
-    
-    data['collection'] = 'anotacao'
-    r=request.get_json()
-    data['Document']={
-        'domain':r['domain'],
-        'title':r['title'],
-        'content':r['content'],
-        'resource':r['resource'],
-        'data': datetime.today().strftime('%Y-%m-%d')
-    }
-    mongo_obj = MongoAPI(data)
-    response = mongo_obj.write(data)
-    # print(response)
-    return jsonify(response)
-
 @app.route('/api/anotacao/', methods=["GET"])
+@auto.doc()
 @cross_origin()
 def getLatestAnotacao():
     
@@ -102,7 +94,28 @@ def getLatestAnotacao():
         return jsonify(response[0])
     else:
         return abort(404)
+@app.route('/api/anotacao/', methods=["POST"])
+@auto.doc()
+@cross_origin()
+def postAnotacao():
+    
+    data['collection'] = 'anotacao'
+    r=request.get_json()
+    data['Document']={
+        'domain':r['domain'],
+        'title':r['title'],
+        'content':r['content'],
+        'resource':r['resource'],
+        'data': datetime.today().strftime('%Y-%m-%d')
+    }
+    mongo_obj = MongoAPI(data)
+    response = mongo_obj.write(data)
+    # print(response)
+    return jsonify(response)
+
+
 @app.route('/api/images/', methods=["GET"])
+@auto.doc()
 @cross_origin()
 def getImg():
     
@@ -121,10 +134,24 @@ def getImg():
     else:
         return abort(404)
 @app.route('/api/test/', methods=["GET","POST"])
+
 @cross_origin()
 def test():
     print(request.get_json()['data']['video']['title'])
     return {}
+
+@app.route('/api/clock',methods=["GET"])
+@cross_origin()
+def time():
+    now = datetime.now()
+    FMT="%H:%M:%S"
+    current_time = now.strftime(FMT)
+
+    tdelta = datetime.strptime(current_time, FMT) - datetime.strptime("06:00:00", FMT)
+    print(tdelta)
+    return str(tdelta)
+
+
 
 
 if __name__ == '__main__':

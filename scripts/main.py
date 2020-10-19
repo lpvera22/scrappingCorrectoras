@@ -35,31 +35,31 @@ def convert(seconds):
 
 def main(search):
     
-    # getUrlCleansMultiprocessing(search,5)
-    # print('cleaning urls...')
-    # cleaningUrls(5)
-    # dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')    
-    # print(dfCleaned)
-    # f = open('scripts/out/imgUrlsWithSet.csv', 'w')
-    # f.write('url;imgSrc')
-    # f.write('\n')
-    # urlsCeps=set(dfCleaned.url)
+    getUrlCleansMultiprocessing(search,5)
+    print('cleaning urls...')
+    cleaningUrls(5)
+    dfCleaned = pd.read_csv('scripts/out/urlCleaned.csv')    
+    print(dfCleaned)
+    f = open('scripts/out/imgUrlsWithSet.csv', 'w')
+    f.write('url;imgSrc')
+    f.write('\n')
+    urlsCeps=set(dfCleaned.url)
     
-    # for url in urlsCeps :
+    for url in urlsCeps :
         
-    #     print(url)
-    #     m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
-    #     seleniumGetImg(url,str(m.group(1)),f)
-    # getallImgUrlwithLogo()
+        print(url)
+        m = re.search('https?://([A-Za-z_0-9.-]+).*', url)
+        seleniumGetImg(url,str(m.group(1)),f)
+    getallImgUrlwithLogo()
     
     
     
-    # getFontsByUrlImg()
+    getFontsByUrlImg()
     
     
-    # getColorsByImgUrl()
+    getColorsByImgUrl()
     
-    # addingFeaturesByImgUrl()
+    addingFeaturesByImgUrl()
 
     
 
@@ -71,16 +71,16 @@ def main(search):
     
 
     
-    # folder = 'scripts/out/'
-    # for filename in os.listdir(folder):
-    #     file_path = os.path.join(folder, filename)
-    #     try:
-    #         if os.path.isfile(file_path) or os.path.islink(file_path):
-    #             os.unlink(file_path)
-    #         elif os.path.isdir(file_path):
-    #             shutil.rmtree(file_path)
-    #     except Exception as e:
-    #         print('Failed to delete %s. Reason: %s' % (file_path, e))
+    folder = 'scripts/out/'
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
     
